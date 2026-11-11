@@ -60,7 +60,9 @@ textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11
    <button class="choice" data-style="display">نمایشی<small>خاص و پرانرژی</small></button>
   </div>
   <div class="toggle-row"><span>حاشیه عنوان</span><input id="titleStroke" type="checkbox" checked></div>
-  <div class="toggle-row"><span>حاشیه زیرعنوان</span><input id="subStroke" type="checkbox"></div>\n  <div class="range-field"><label for="titleSize">اندازه عنوان <output id="titleSizeOut">114</output></label><input id="titleSize" type="range" min="55" max="175" value="114"></div>\n  <div class="range-field"><label for="subSize">اندازه زیرعنوان <output id="subSizeOut">49</output></label><input id="subSize" type="range" min="24" max="90" value="49"></div>
+  <div class="toggle-row"><span>حاشیه زیرعنوان</span><input id="subStroke" type="checkbox"></div>
+  <div class="range-field"><label for="titleSize">اندازه عنوان <output id="titleSizeOut">114</output></label><input id="titleSize" type="range" min="55" max="175" value="114"></div>
+  <div class="range-field"><label for="subSize">اندازه زیرعنوان <output id="subSizeOut">49</output></label><input id="subSize" type="range" min="24" max="90" value="49"></div>
  </section>
  <section class="section">
   <div class="section-title">۳. رنگ نوشته انتخاب‌شده</div>
@@ -80,7 +82,8 @@ textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11
  <section class="section">
   <div class="section-title">۴. پس‌زمینه</div>
   <div class="field"><label>رنگ پس‌زمینه (وقتی عکس نداری)</label><div class="custom-color"><input id="bgColor" type="color" value="#211c35"><span>انتخاب رنگ پس‌زمینه</span></div></div>
-  <label class="upload">＋ انتخاب عکس پس‌زمینه از دستگاه<input id="bgUpload" type="file" accept="image/*"></label>\n  <div class="range-field"><label for="overlay">تیرگی تصویر پس‌زمینه <output id="overlayOut">20٪</output></label><input id="overlay" type="range" min="0" max="85" value="20"></div>
+  <label class="upload">＋ انتخاب عکس پس‌زمینه از دستگاه<input id="bgUpload" type="file" accept="image/*"></label>
+  <div class="range-field"><label for="overlay">تیرگی تصویر پس‌زمینه <output id="overlayOut">20٪</output></label><input id="overlay" type="range" min="0" max="85" value="20"></div>
  </section>
  <section class="section">
   <div class="section-title">۵. تزئینات آماده <span class="muted">فقط یکی یا هیچ‌کدام</span></div>
@@ -134,7 +137,8 @@ document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',
 document.querySelectorAll('[data-color-mode]').forEach(b=>b.addEventListener('click',()=>{colorMode=b.dataset.colorMode;document.querySelectorAll('[data-color-mode]').forEach(x=>x.classList.toggle('active',x===b));syncPalette()}));
 $('palette').addEventListener('click',e=>{let b=e.target.closest('[data-color]');if(!b)return;state[colorKey()]=b.dataset.color;syncPalette();render()});
 $('customColor').addEventListener('input',e=>{state[colorKey()]=e.target.value;syncPalette();render()});
-$('bgColor').addEventListener('input',e=>{state.bgColor=e.target.value;render()});\n['titleSize','subSize','overlay'].forEach(id=>$(id).addEventListener('input',e=>{state[id]=Number(e.target.value);$(id+'Out').textContent=state[id]+(id==='overlay'?'٪':'');render()}));
+$('bgColor').addEventListener('input',e=>{state.bgColor=e.target.value;render()});
+['titleSize','subSize','overlay'].forEach(id=>$(id).addEventListener('input',e=>{state[id]=Number(e.target.value);$(id+'Out').textContent=state[id]+(id==='overlay'?'٪':'');render()}));
 document.querySelectorAll('[data-decor]').forEach(b=>b.addEventListener('click',()=>{state.decor=b.dataset.decor;document.querySelectorAll('[data-decor]').forEach(x=>x.classList.toggle('active',x===b));render()}));
 document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>setRatio(b.dataset.ratio)));
 $('bgUpload').addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let img=new Image();img.onload=()=>{bgImage=img;render();toast('تصویر پس‌زمینه اضافه شد')};img.src=URL.createObjectURL(f)});
