@@ -20,7 +20,7 @@ main{max-width:1380px;margin:auto;padding:24px clamp(12px,3vw,34px) 40px}.intro{
 .workspace{display:grid;direction:ltr;grid-template-columns:minmax(300px,390px) minmax(0,1fr);gap:18px;align-items:start}.controls,.preview-panel{direction:rtl}
 .controls,.preview-panel{background:linear-gradient(160deg,#1c1c29,#171720);border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 16px 48px #0002}
 .controls{padding:0 16px 15px}.section{padding:15px 0;border-bottom:1px solid #ffffff10}.section:last-child{border:0}.section-title{font-size:12px;font-weight:900;margin-bottom:10px;display:flex;justify-content:space-between}.muted{color:var(--muted);font-size:10px;font-weight:500}
-.part-select,.style-list,.decor-icon{display:block;width:25px;height:25px;margin:0 auto 4px;flex:none}.decors{display:grid;gap:7px}.part-select{grid-template-columns:1fr 1fr} .border-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.style-list{grid-template-columns:repeat(2,1fr)}.decors{grid-template-columns:repeat(4,1fr)}
+.part-select,.style-list{display:grid;width:100%;height:auto;margin:8px 0;gap:7px;min-width:0}.decor-icon{display:block;width:25px;height:25px;margin:0 auto 4px;flex:none}.part-select{grid-template-columns:repeat(2,minmax(0,1fr))}.border-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.style-list{grid-template-columns:repeat(2,minmax(0,1fr))}.decors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
 .choice{border:1px solid var(--line);background:#11111a;color:#d8d3e7;border-radius:10px;padding:10px 8px;font-size:11px;font-weight:800;text-align:center}.choice small{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.choice.active{border-color:#b69cff;background:#a78bfa20;color:white;box-shadow:inset 0 0 0 1px #a78bfa30}
 .field{margin:9px 0}.field label{display:block;color:#c9c7d7;font-size:11px;margin-bottom:6px}
 textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11111a;color:var(--text);border-radius:10px;padding:10px;outline:none;font-size:13px}textarea{resize:vertical;min-height:76px;line-height:1.8}textarea:focus,input:focus{border-color:#9276ef}
@@ -37,6 +37,19 @@ textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11
 .toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,15px);background:#eee9ff;color:#1c1728;padding:10px 16px;border-radius:10px;font-size:11px;font-weight:800;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:850px){.workspace{grid-template-columns:1fr}.controls{order:2}.preview-panel{order:1}.preview-area{min-height:0}.canvas-wrap{width:min(100%,390px)}}
 @media(max-width:560px){.preview-panel{position:sticky;top:56px;z-index:4;border-radius:0 0 13px 13px;box-shadow:0 8px 24px #0008}.preview-head{padding:7px 10px}.preview-area{padding:5px;max-height:39svh;overflow:hidden}.canvas-wrap{width:auto;height:34svh;max-width:100%;box-shadow:0 8px 24px #0008}.canvas-wrap canvas{width:auto;height:34svh;max-width:100%;object-fit:contain}.preview-bottom{padding:6px 9px;gap:6px}.preview-bottom>.muted{display:none}.ratios{width:auto;flex:1;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:30px;padding:4px;font-size:9px}.topbar{height:56px;padding:0 11px}.brand{font-size:14px}.logo{width:31px;height:31px}.topbar .btn{padding:8px 10px;font-size:10px}main{padding:15px 9px 25px}.intro{margin-bottom:13px}.intro h1{font-size:20px}.intro p{font-size:10px;line-height:1.8}.controls,.preview-panel{border-radius:13px}.controls{padding:0 11px 12px}.section{padding:12px 0}.preview-head{padding:11px 12px}.preview-area{padding:8px}.preview-bottom{padding:9px;flex-wrap:wrap}.ratios{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:37px}.style-list{gap:6px}.choice{padding:9px 5px}.decors{grid-template-columns:repeat(4,1fr)}textarea,input[type=text]{font-size:16px}.swatch{width:32px;height:32px}}
+
+/* Layout stability: prevent long labels and controls from overflowing their grid cells. */
+.controls,.preview-panel,.section,.field,.workspace>*{min-width:0}
+.part-select .choice,.style-list .choice,.border-options .choice,.decors .choice{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
+.section-title{align-items:flex-start;gap:10px;line-height:1.7}
+.section-title>.muted{text-align:left;max-width:52%}
+textarea,input[type=text]{display:block;min-width:0}
+@media(max-width:560px){
+ .part-select,.style-list{gap:6px}
+ .border-options{gap:5px}
+ .border-options .choice{padding:9px 3px;font-size:10px}
+ .section-title>.muted{max-width:48%}
+}
 </style>
 </head>
 <body>
