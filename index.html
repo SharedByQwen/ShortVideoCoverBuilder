@@ -8,7 +8,7 @@
 <title>CoverLab | سازنده کاور</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;700;800;900&family=Lalezar&family=Marhey:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Lilita+One&family=Noto+Serif+Arabic:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Bebas+Neue&family=Lalezar&family=Marhey:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#101018;--panel:#191923;--line:#303044;--muted:#9999ad;--text:#f6f4ff;--accent:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -20%,#292044 0,transparent 42%),var(--bg);color:var(--text);font-family:Estedad,sans-serif;min-height:100vh}
@@ -39,8 +39,8 @@ textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11
 .preview-bottom{padding:11px 15px;border-top:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between;gap:10px}.ratios{display:flex;gap:6px}.ratios button{background:transparent;border:1px solid var(--line);color:var(--muted);padding:7px 10px;border-radius:8px;font-size:10px}.ratios button.active{background:#a78bfa20;border-color:#a78bfa;color:#e2d9ff}
 .actions{display:flex;gap:8px;margin-top:13px}.actions .btn{flex:1}.note{color:var(--muted);font-size:9px;line-height:1.8;margin:10px 0 0}
 .toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,15px);background:#eee9ff;color:#1c1728;padding:10px 16px;border-radius:10px;font-size:11px;font-weight:800;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:850px){.workspace{grid-template-columns:1fr}.controls{order:2}.preview-area{min-height:0}.canvas-wrap{width:min(100%,390px)}}
-@media(max-width:560px){.topbar{height:56px;padding:0 11px}.brand{font-size:14px}.logo{width:31px;height:31px}.topbar .btn{padding:8px 10px;font-size:10px}main{padding:15px 9px 25px}.intro{margin-bottom:13px}.intro h1{font-size:20px}.intro p{font-size:10px;line-height:1.8}.controls,.preview-panel{border-radius:13px}.controls{padding:0 11px 12px}.section{padding:12px 0}.preview-head{padding:11px 12px}.preview-area{padding:8px}.preview-bottom{padding:9px;flex-wrap:wrap}.ratios{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:37px}.style-list{gap:6px}.choice{padding:9px 5px}.decors{grid-template-columns:repeat(4,1fr)}textarea,input[type=text]{font-size:16px}.swatch{width:32px;height:32px}}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.controls{order:2}.preview-panel{order:1}.preview-area{min-height:0}.canvas-wrap{width:min(100%,390px)}}
+@media(max-width:560px){.preview-panel{position:sticky;top:56px;z-index:4;border-radius:0 0 13px 13px;box-shadow:0 8px 24px #0008}.preview-head{padding:7px 10px}.preview-area{padding:5px;max-height:39svh;overflow:hidden}.canvas-wrap{width:auto;height:34svh;max-width:100%;box-shadow:0 8px 24px #0008}.canvas-wrap canvas{width:auto;height:34svh;max-width:100%;object-fit:contain}.preview-bottom{padding:6px 9px;gap:6px}.preview-bottom>.muted{display:none}.ratios{width:auto;flex:1;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:30px;padding:4px;font-size:9px}.topbar{height:56px;padding:0 11px}.brand{font-size:14px}.logo{width:31px;height:31px}.topbar .btn{padding:8px 10px;font-size:10px}main{padding:15px 9px 25px}.intro{margin-bottom:13px}.intro h1{font-size:20px}.intro p{font-size:10px;line-height:1.8}.controls,.preview-panel{border-radius:13px}.controls{padding:0 11px 12px}.section{padding:12px 0}.preview-head{padding:11px 12px}.preview-area{padding:8px}.preview-bottom{padding:9px;flex-wrap:wrap}.ratios{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:37px}.style-list{gap:6px}.choice{padding:9px 5px}.decors{grid-template-columns:repeat(4,1fr)}textarea,input[type=text]{font-size:16px}.swatch{width:32px;height:32px}}
 </style>
 </head>
 <body>
@@ -117,7 +117,7 @@ const $=id=>document.getElementById(id),canvas=$('cover'),ctx=canvas.getContext(
 const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",style:'minimal',titleStroke:true,subStroke:false,titleFill:'#ffffff',titleOutline:'#17151d',subFill:'#ffbf24',subOutline:'#17151d',bgColor:'#211c35',decor:'none',titleSize:114,subSize:49,overlay:20,titleX:.5,titleY:.49,subX:.5,subY:.79,ratio:'portrait'};
 let state={...defaults},part='title',colorMode='fill',bgImage=null,saveTimer;
 const palettes=['#ffffff','#ffbf24','#13bce8','#f343a5','#a855f7','#83e52b','#ff851b','#17151d'];
-const fonts={minimal:{fa:'Noto Serif Arabic',en:'Cormorant Garamond',weight:600,size:.105},fancy:{fa:'Marhey',en:'Fredoka',weight:700,size:.12},bold:{fa:'Readex Pro',en:'Rubik',weight:800,size:.135},display:{fa:'Marhey',en:'Lilita One',weight:700,size:.125}};
+const fonts={minimal:{fa:'Vazirmatn',en:'Manrope',weight:700,size:.105},fancy:{fa:'Marhey',en:'Marhey',weight:700,size:.12},bold:{fa:'Baloo Bhaijaan 2',en:'Baloo Bhaijaan 2',weight:800,size:.135},display:{fa:'Lalezar',en:'Bebas Neue',weight:400,size:.125}};
 const fontFor=text=>/[آ-ی]/.test(text)?fonts[state.style].fa:fonts[state.style].en;
 const isStroke=()=>part==='title'?'titleStroke':'subStroke';
 const colorKey=()=> (part==='title'?'title':'sub')+(colorMode==='fill'?'Fill':'Outline');
