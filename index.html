@@ -8,7 +8,7 @@
 <title>CoverLab | سازنده کاور</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;700;800;900&family=Vazirmatn:wght@400;600;700;800;900&family=Lalezar&family=Jomhuria&family=Marhey:wght@400;500;600;700&family=Rakkas&family=Oi&family=Blaka&family=Badeen+Display&family=Fredoka:wght@400;500;600;700&family=Lilita+One&family=Bungee&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;700;800;900&family=Lalezar&family=Marhey:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#101018;--panel:#191923;--panel2:#222230;--line:#303044;--muted:#9999ad;--text:#f6f4ff;--accent:#a78bfa;--accent2:#7c5cff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -20%,#292044 0,transparent 42%),var(--bg);color:var(--text);font-family:Estedad,Vazirmatn,sans-serif;min-height:100vh}
@@ -22,6 +22,7 @@ main{max-width:1440px;margin:auto;padding:28px clamp(14px,3vw,38px) 48px}.intro{
 .canvas-wrap{width:min(100%,420px);position:relative;box-shadow:0 20px 60px #0009;border-radius:4px;overflow:hidden;line-height:0}.canvas-wrap canvas{width:100%;height:auto;display:block}
 .preview-bottom{padding:12px 16px;border-top:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between;gap:12px}.ratio-tabs{display:flex;gap:6px}.ratio-tabs button{background:transparent;border:1px solid var(--line);color:var(--muted);padding:6px 10px;border-radius:8px;font-size:11px}.ratio-tabs button.active{background:#a78bfa20;border-color:#a78bfa;color:#d9ceff}.hint{font-size:10px;color:var(--muted)}
 .controls{padding:0 17px 17px}.section{padding:16px 0;border-bottom:1px solid #ffffff10}.section:last-child{border:0;padding-bottom:0}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:12px;font-weight:800}.section-title small{font-size:10px;color:var(--muted);font-weight:500}
+.variants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}.variant-btn{border:1px solid var(--line);background:#11111a;color:#ddd7ef;border-radius:10px;padding:10px 8px;font-size:11px;font-weight:800;text-align:right}.variant-btn small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.variant-btn.active{border-color:#b69cff;background:#a78bfa20;color:#fff}.variant-btn:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
 .field{margin:10px 0}.style-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.style-preset{border:1px solid var(--line);background:#11111a;color:#ddd7ef;border-radius:10px;padding:9px 5px;font-size:11px;font-weight:800}.style-preset span{display:block;font-size:9px;color:var(--muted);font-weight:500;margin-top:3px}.style-preset.active{border-color:#b69cff;background:#a78bfa20;color:#fff;box-shadow:inset 0 0 0 1px #a78bfa40}.advanced{border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-top:12px;background:#11111a}.advanced summary{cursor:pointer;color:#cfc8e8;font-size:11px;font-weight:800}.advanced[open] summary{margin-bottom:10px}.field label{display:flex;justify-content:space-between;gap:10px;color:#c9c7d7;font-size:11px;margin-bottom:6px}.field label output{color:#b9a8ff;font-variant-numeric:tabular-nums;direction:ltr}
 textarea,select,input[type=text]{width:100%;border:1px solid var(--line);background:#11111a;color:var(--text);border-radius:10px;padding:10px 11px;outline:none;font-size:12px}textarea{resize:vertical;min-height:76px;line-height:1.8}textarea:focus,select:focus,input:focus{border-color:#9276ef}
 select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:ltr}
@@ -115,8 +116,11 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
         <div class="section-title">متن کاور <small>فارسی یا English</small></div>
         <div class="field"><label for="titleText">عنوان اصلی</label><textarea id="titleText" spellcheck="false">یه شروع تازه!</textarea></div>
         <div class="field"><label for="subText">زیرعنوان <span>اختیاری</span></label><input id="subText" type="text" value="Let's see where this goes!" /></div>
-        <div class="field"><label for="fontSelect">فونت</label><select id="fontSelect">
-          <option value="Marhey">Marhey · فارسی گرد و فانتزی</option><option value="Jomhuria">Jomhuria · پوستر درشت</option><option value="Rakkas">Rakkas · نمایشی</option><option value="Oi">Oi · کمیک و کارتونی</option><option value="Blaka">Blaka · ضخیم و خاص</option><option value="Badeen Display">Badeen Display · نمایشی</option><option value="Lalezar">لاله‌زار · فارسی فانتزی</option><option value="Estedad">Estedad Black · فارسی ضخیم</option><option value="Vazirmatn">Vazirmatn · فارسی مدرن</option><option value="Lilita One">Lilita One · English playful</option><option value="Fredoka">Fredoka · English rounded</option><option value="Bungee">Bungee · English bold</option>
+        <div class="field"><label for="designStyle">جهت طراحی</label><select id="designStyle"><option value="guided">پیشنهاد هوشمند (متعادل)</option><option value="playful">فانتزی و رنگی</option><option value="bold">بولد و چشمگیر</option><option value="minimal">مینیمال و خلوت</option></select></div>
+        <button class="btn primary" id="generateBtn" style="width:100%;padding:12px">✦ ساخت ۴ پیشنهاد طراحی</button>
+        <div id="variants" class="variants" aria-live="polite"><span class="small-note">بعد از زدن دکمه، چهار ترکیب‌بندی برای انتخاب نمایش داده می‌شود.</span></div>
+        <div class="field"><label for="fontSelect">فونت پیشنهادی (قابل تغییر)</label><select id="fontSelect">
+          <option value="Marhey">Marhey · فارسی فانتزی</option><option value="Lalezar">Lalezar · فارسی بولد</option><option value="Estedad">Estedad · فارسی مینیمال</option><option value="Fredoka">Fredoka · English rounded</option><option value="Lilita One">Lilita One · English display</option>
         </select></div>
         <div class="field"><label>اندازه عنوان <output id="fontSizeOut">112</output></label><input id="fontSize" type="range" min="48" max="180" value="112"></div>
         <div class="field"><label>فاصله خطوط <output id="lineOut">1.15</output></label><input id="lineHeight" type="range" min="85" max="150" value="115"></div>
@@ -144,7 +148,8 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
         </div>
         <div class="field"><label>تصویر پس‌زمینه</label><label class="upload">＋ انتخاب تصویر از دستگاه<input id="bgUpload" type="file" accept="image/*"></label></div>
         <div class="field"><label>تیرگی روی تصویر <output id="overlayOut">20%</output></label><input id="overlay" type="range" min="0" max="75" value="20"></div>
-        <div class="field"><label class="checkrow"><input id="decorToggle" type="checkbox" checked> تزئینات کوچک و استیکری</label></div>
+        <div class="field"><label class="checkrow"><input id="decorToggle" type="checkbox"> تزئینات کوچک و استیکری (اختیاری)</label></div>
+        <div class="field"><label class="checkrow"><input id="strokeToggle" type="checkbox" checked> فعال بودن حاشیه نوشته</label></div>
       </div>
       <div class="bottom-actions"><button class="btn" id="clearBg">حذف تصویر پس‌زمینه</button><button class="btn primary" id="downloadBtn">دانلود کاور PNG</button></div>
       <p class="small-note">پیش‌نمایش و خروجی هر دو در همین مرورگر ساخته می‌شوند. تصویر انتخابی از دستگاهت جایی آپلود نمی‌شود. تنظیمات در همین مرورگر ذخیره می‌شوند.</p>
@@ -155,9 +160,9 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
 <script>
 (() => {
 const $=id=>document.getElementById(id), canvas=$('cover'), ctx=canvas.getContext('2d');
-const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",fontSelect:'Marhey',fontSize:142,lineHeight:115,fillColor:'#ffffff',innerColor:'#17151d',outerColor:'#ffbf24',subColor:'#ffcf48',outerWidth:22,innerWidth:12,positionY:52,bgColor:'#211c35',bgColor2:'#11131e',overlay:20,decorToggle:true,ratio:'portrait'};
+const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",fontSelect:'Marhey',fontSize:142,lineHeight:115,fillColor:'#ffffff',innerColor:'#17151d',outerColor:'#ffbf24',subColor:'#ffcf48',outerWidth:22,innerWidth:12,positionY:52,bgColor:'#211c35',bgColor2:'#11131e',overlay:20,decorToggle:false,strokeToggle:true,ratio:'portrait'};
 let bgImage=null, ratio='portrait', saveTimer;
-const controls=['titleText','subText','fontSelect','fontSize','lineHeight','fillColor','innerColor','outerColor','subColor','outerWidth','innerWidth','positionY','bgColor','bgColor2','overlay','decorToggle'];
+const controls=['titleText','subText','fontSelect','fontSize','lineHeight','fillColor','innerColor','outerColor','subColor','outerWidth','innerWidth','positionY','bgColor','bgColor2','overlay','decorToggle','strokeToggle'];
 function val(id){return $(id).type==='checkbox'?$(id).checked:$(id).value}
 function show(id,v){$(id).textContent=v}
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2100)}
@@ -173,7 +178,7 @@ function drawDecor(w,h){ctx.save();ctx.globalAlpha=.9;const c=val('outerColor');
 }
 function wrapLines(text,font,size,maxWidth){ctx.font='900 '+size+'px "'+font+'"';const paragraphs=text.split('\n'),lines=[];paragraphs.forEach(p=>{if(!p){lines.push('');return}const words=p.split(/\s+/);let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}lines.push(line)});return lines}
 function strokeText(text,x,y,font,size){ctx.font='900 '+size+'px "'+font+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction=/[A-Za-z]/.test(text)&&!/[آ-ی]/.test(text)?'ltr':'rtl';ctx.lineJoin='round';ctx.miterLimit=2;
- const ow=Number(val('outerWidth'))*2,iw=Number(val('innerWidth'))*2;
+ const ow=val('strokeToggle')?Number(val('outerWidth'))*2:0,iw=val('strokeToggle')?Number(val('innerWidth'))*2:0;
  if(ow>0){ctx.strokeStyle=val('outerColor');ctx.lineWidth=ow;ctx.strokeText(text,x,y)}
  if(iw>0){ctx.strokeStyle=val('innerColor');ctx.lineWidth=iw;ctx.strokeText(text,x,y)}
  ctx.fillStyle=val('fillColor');ctx.fillText(text,x,y);
@@ -191,8 +196,12 @@ function download(){render();const a=document.createElement('a');a.download='cov
 function loadSelectedFont(){const font=val('fontSelect'),sample=val('titleText')||'کاور';if(!document.fonts){render();return}document.fonts.load('700 112px "'+font+'"',sample).then(()=>render()).catch(()=>render())}
 controls.forEach(id=>{$(id).addEventListener('input',()=>{if(id==='fontSize')show('fontSizeOut',val(id));if(id==='lineHeight')show('lineOut',(Number(val(id))/100).toFixed(2));if(id==='outerWidth')show('outerOut',val(id));if(id==='innerWidth')show('innerOut',val(id));if(id==='positionY')show('positionOut',val(id)+'%');if(id==='overlay')show('overlayOut',val(id)+'%');if(id==='fontSelect')loadSelectedFont();else render()})});
 document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>setSize(b.dataset.ratio)));
-const styleMap={puffy:{font:'Marhey',outer:25,inner:13,size:148,fill:'#fffdf7',outerColor:'#ffbf24',innerColor:'#34213f'},poster:{font:'Jomhuria',outer:27,inner:9,size:170,fill:'#fff5dc',outerColor:'#f343a5',innerColor:'#25152e'},comic:{font:'Oi',outer:24,inner:12,size:148,fill:'#ffffff',outerColor:'#13bce8',innerColor:'#17223c'},retro:{font:'Lalezar',outer:22,inner:10,size:150,fill:'#ffe6ad',outerColor:'#ff851b',innerColor:'#49243b'},bold:{font:'Blaka',outer:30,inner:14,size:155,fill:'#ffffff',outerColor:'#a855f7',innerColor:'#17151d'},clean:{font:'Estedad',outer:17,inner:7,size:132,fill:'#ffffff',outerColor:'#83e52b',innerColor:'#17251b'}};
-document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',()=>{const p=styleMap[b.dataset.style];$('fontSelect').value=p.font;$('outerWidth').value=p.outer;$('innerWidth').value=p.inner;$('fontSize').value=p.size;$('fillColor').value=p.fill;$('outerColor').value=p.outerColor;$('innerColor').value=p.innerColor;document.querySelectorAll('[data-style]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x.dataset.color===p.outerColor));['fontSizeOut','outerOut','innerOut'].forEach((id,i)=>show(id,[p.size,p.outer,p.inner][i]));loadSelectedFont()}));
+const styleMap={puffy:{font:'Marhey',outer:25,inner:13,size:148,fill:'#fffdf7',outerColor:'#ffbf24',innerColor:'#34213f'},poster:{font:'Lalezar',outer:27,inner:9,size:170,fill:'#fff5dc',outerColor:'#f343a5',innerColor:'#25152e'},comic:{font:'Marhey',outer:24,inner:12,size:148,fill:'#ffffff',outerColor:'#13bce8',innerColor:'#17223c'},retro:{font:'Lalezar',outer:22,inner:10,size:150,fill:'#ffe6ad',outerColor:'#ff851b',innerColor:'#49243b'},bold:{font:'Estedad',outer:30,inner:14,size:155,fill:'#ffffff',outerColor:'#a855f7',innerColor:'#17151d'},clean:{font:'Estedad',outer:0,inner:0,size:132,fill:'#ffffff',outerColor:'#83e52b',innerColor:'#17251b'}};
+function applyStyle(key,button){const p=styleMap[key];if(!p)return;$('fontSelect').value=p.font;$('outerWidth').value=p.outer;$('innerWidth').value=p.inner;$('fontSize').value=p.size;$('fillColor').value=p.fill;$('outerColor').value=p.outerColor;$('innerColor').value=p.innerColor;$('strokeToggle').checked=(p.outer+p.inner)>0;document.querySelectorAll('.variant-btn').forEach(x=>x.classList.toggle('active',x===button));document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x.dataset.color===p.outerColor));show('fontSizeOut',p.size);show('outerOut',p.outer);show('innerOut',p.inner);loadSelectedFont()}
+const variantSets={guided:[['clean','مینیمال','خوانا و خلوت'],['puffy','فانتزی','گرد و رنگی'],['bold','بولد','عنوان قدرتمند'],['poster','پوستری','چیدمان نمایشی']],playful:[['puffy','فانتزی','گرد و رنگی'],['comic','استیکری','رنگی و بازیگوش'],['retro','رترو','گرم و پرانرژی'],['poster','پوستری','نمایشی']],bold:[['bold','بولد','حاشیه ضخیم'],['poster','پوستری','عنوان بزرگ'],['retro','رترو','کنتراست بالا'],['clean','مینیمال','بدون شلوغی']],minimal:[['clean','مینیمال','بدون حاشیه'],['bold','بولد','تأکید روی عنوان'],['puffy','نرم','گرد و ساده'],['poster','پوستری','ترکیب‌بندی متفاوت']]};
+function generateVariants(){const set=variantSets[val('designStyle')]||variantSets.guided;$('variants').innerHTML=set.map(([key,name,desc])=>'<button type="button" class="variant-btn" data-variant="'+key+'">'+name+'<small>'+desc+'</small></button>').join('');$('variants').querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>applyStyle(b.dataset.variant,b)));const first=$('variants').querySelector('button');if(first)first.click();toast('۴ پیشنهاد طراحی آماده شد')}
+$('generateBtn').addEventListener('click',generateVariants);
+
 $('palettes').addEventListener('click',e=>{const b=e.target.closest('[data-color]');if(!b)return;$('outerColor').value=b.dataset.color;document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x===b));render()});
 $('bgUpload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{bgImage=img;render();toast('تصویر پس‌زمینه اضافه شد')};img.src=URL.createObjectURL(f)});
 $('clearBg').addEventListener('click',()=>{bgImage=null;$('bgUpload').value='';render();toast('تصویر پس‌زمینه حذف شد')});
@@ -202,6 +211,7 @@ try{const saved=JSON.parse(localStorage.getItem('coverlab-settings')||'null');if
 // Render immediately so the preview does not depend on external font loading.
 setSize(ratio);
 loadSelectedFont();
+generateVariants();
 show('fontSizeOut',val('fontSize'));show('outerOut',val('outerWidth'));show('innerOut',val('innerWidth'));show('lineOut',(Number(val('lineHeight'))/100).toFixed(2));show('positionOut',val('positionY')+'%');show('overlayOut',val('overlay')+'%');
 // Re-render when web fonts finish loading; if they are unavailable, the fallback preview remains visible.
 if(document.fonts && document.fonts.ready){document.fonts.ready.then(()=>render()).catch(()=>{});}
