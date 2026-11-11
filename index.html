@@ -118,7 +118,7 @@ const $=id=>document.getElementById(id),canvas=$('cover'),ctx=canvas.getContext(
 const defaults={titleText:'این تازه شروع ماجراست',subText:'',style:'sticker',titleStroke:true,subStroke:false,titleTriple:true,subTriple:false,titleFill:'#ffffff',titleOutline:'#a855f7',subFill:'#ffbf24',subOutline:'#17151d',bgColor:'#211c35',decor:'none',titleSize:122,subSize:49,overlay:20,titleX:.5,titleY:.49,subX:.5,subY:.79,ratio:'portrait'};
 let state={...defaults},part='title',colorMode='fill',bgImage=null,saveTimer;
 const palettes=['#ffffff','#ffbf24','#13bce8','#f343a5','#a855f7','#83e52b','#ff851b','#17151d'];
-const fonts={classic:{fa:'Estedad',en:'Manrope',weight:700,size:.105},fantasy:{fa:'Lalezar',en:'Lalezar',weight:400,size:.12},geometric:{fa:'Morabba',en:'Morabba',weight:800,size:.13},sticker:{fa:'Baloo Bhaijaan 2',en:'Lilita One',weight:800,size:.135}};
+const fonts={classic:{fa:'Estedad',en:'Manrope',weight:500,size:.105},fantasy:{fa:'Lalezar',en:'Lalezar',weight:400,size:.12},geometric:{fa:'Morabba',en:'Morabba',weight:800,size:.13},sticker:{fa:'Baloo Bhaijaan 2',en:'Lilita One',weight:800,size:.135}};
 const fontFor=text=>/[آ-ی]/.test(text)?fonts[state.style].fa:fonts[state.style].en;
 const isStroke=()=>part==='title'?'titleStroke':'subStroke';
 const colorKey=()=> (part==='title'?'title':'sub')+(colorMode==='fill'?'Fill':'Outline');
