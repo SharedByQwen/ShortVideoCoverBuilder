@@ -114,7 +114,7 @@ const palettes=['#ffffff','#ffbf24','#13bce8','#f343a5','#a855f7','#83e52b','#ff
 const fonts={minimal:{fa:'Estedad',en:'Fredoka',weight:850,size:.105},fancy:{fa:'Marhey',en:'Fredoka',weight:700,size:.12},bold:{fa:'Lalezar',en:'Lilita One',weight:400,size:.135},display:{fa:'Marhey',en:'Lilita One',weight:700,size:.125}};
 const fontFor=text=>/[آ-ی]/.test(text)?fonts[state.style].fa:fonts[state.style].en;
 const isStroke=()=>part==='title'?'titleStroke':'subStroke';
-const colorKey=()=>part+(colorMode==='fill'?'Fill':'Outline');
+const colorKey=()=> (part==='title'?'title':'sub')+(colorMode==='fill'?'Fill':'Outline');
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
 function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem('coverlab-v2',JSON.stringify(state))}catch(e){}},180)}
 function wrap(text,font,size,max){ctx.font=fonts[state.style].weight+' '+size+'px "'+font+'"';let out=[];text.split('\n').forEach(p=>{let line='';p.split(/\s+/).forEach(word=>{let test=line?line+' '+word:word;if(ctx.measureText(test).width>max&&line){out.push(line);line=word}else line=test});out.push(line)});return out}
