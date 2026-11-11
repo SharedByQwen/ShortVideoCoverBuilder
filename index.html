@@ -31,6 +31,8 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
 .checkrow{display:flex;align-items:center;gap:8px;color:#c9c7d7;font-size:11px}.checkrow input{accent-color:#a78bfa}
 .small-note{font-size:10px;color:var(--muted);line-height:1.8;margin-top:8px}.bottom-actions{display:flex;gap:8px;margin-top:14px}.bottom-actions .btn{flex:1}
 .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#eee9ff;color:#1c1728;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+.debug-panel{max-width:1440px;margin:0 auto 28px;padding:0 clamp(14px,3vw,38px);color:#f6f4ff}.debug-panel details{background:#15151f;border:1px solid #574b75;border-radius:12px;overflow:hidden}.debug-panel summary{cursor:pointer;padding:11px 14px;font-size:11px;font-weight:800;color:#d5c9ff}.debug-tools{display:flex;gap:8px;padding:0 12px 10px}.debug-tools button{border:1px solid #393449;background:#22202e;color:#eee8ff;border-radius:8px;padding:7px 11px;font:inherit;font-size:10px}.debug-tools button.primary{background:#a78bfa;color:#171322;border:0}#debugLogs{margin:0;padding:12px;background:#090910;color:#d8d2e8;border-top:1px solid #ffffff18;direction:ltr;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;max-height:230px;overflow:auto;font:11px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.debug-help{padding:0 12px 10px;color:#aaa3bd;font-size:10px;line-height:1.7}
+@media(max-width:600px){.debug-panel{padding:0 10px;margin-bottom:18px}.debug-panel summary{padding:12px;font-size:10px}#debugLogs{font-size:10px;max-height:200px}.debug-tools button{min-height:36px}}
 @media(max-width:900px){
  .workspace{grid-template-columns:minmax(0,1fr);gap:16px}
  .controls{order:2;width:100%}
@@ -151,10 +153,17 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
     </aside>
   </div>
 </main>
+<section class="debug-panel" aria-label="گزارش عیب‌یابی"><details id="debugPanel"><summary>🛠 گزارش عیب‌یابی موقت — برای ارسال به پشتیبانی باز کن</summary><div class="debug-tools"><button class="primary" id="copyDebug">کپی همه لاگ‌ها</button><button id="clearDebug">پاک‌کردن لاگ‌ها</button></div><pre id="debugLogs">در انتظار شروع برنامه...</pre><div class="debug-help">اگر پیش‌نمایش خالی است، پنل را باز کن، یک بار متن یا فونت را تغییر بده و سپس لاگ‌ها را کپی کن.</div></details></section>
 <div class="toast" id="toast"></div>
 <script>
 (() => {
-const $=id=>document.getElementById(id), canvas=$('cover'), ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id);
+const debugEntries=[];
+function debugLog(level,message,extra){let line='['+new Date().toLocaleTimeString()+'] ['+level.toUpperCase()+'] '+message;if(extra!==undefined){try{line+=' | '+(typeof extra==='string'?extra:JSON.stringify(extra))}catch(e){line+=' | '+String(extra)}}debugEntries.push(line);if(debugEntries.length>160)debugEntries.shift();const out=$('debugLogs');if(out){out.textContent=debugEntries.join('\\n');out.scrollTop=out.scrollHeight}}
+window.addEventListener('error',e=>debugLog('error','JavaScript/resource error: '+(e.message||'unknown'),{file:e.filename,line:e.lineno,column:e.colno,tag:e.target&&e.target.tagName}));
+window.addEventListener('unhandledrejection',e=>debugLog('error','Unhandled promise rejection',e.reason&&(e.reason.stack||e.reason.message)||String(e.reason)));
+window.addEventListener('load',()=>debugLog('info','صفحه و منابع اولیه بارگذاری شدند',{userAgent:navigator.userAgent,language:navigator.language}));
+const canvas=$('cover');let ctx=null;try{ctx=canvas&&canvas.getContext('2d');debugLog(ctx?'info':'error',ctx?'Canvas 2D context آماده است':'Canvas 2D context در دسترس نیست',{canvas:!!canvas})}catch(e){debugLog('error','دریافت Canvas context ناموفق بود',e.stack||e.message)}
 const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",fontSelect:'Marhey',fontSize:142,lineHeight:115,fillColor:'#ffffff',innerColor:'#17151d',outerColor:'#ffbf24',subColor:'#ffcf48',outerWidth:22,innerWidth:12,positionY:52,bgColor:'#211c35',bgColor2:'#11131e',overlay:20,decorToggle:true,ratio:'portrait'};
 let bgImage=null, ratio='portrait', saveTimer;
 const controls=['titleText','subText','fontSelect','fontSize','lineHeight','fillColor','innerColor','outerColor','subColor','outerWidth','innerWidth','positionY','bgColor','bgColor2','overlay','decorToggle'];
@@ -178,29 +187,37 @@ function strokeText(text,x,y,font,size){ctx.font='900 '+size+'px "'+font+'"';ctx
  if(iw>0){ctx.strokeStyle=val('innerColor');ctx.lineWidth=iw;ctx.strokeText(text,x,y)}
  ctx.fillStyle=val('fillColor');ctx.fillText(text,x,y);
 }
-function render(){if(!ctx)return;const w=canvas.width,h=canvas.height;drawBg(w,h);if(val('decorToggle'))drawDecor(w,h);
- const font=val('fontSelect'),size=Number(val('fontSize')),lineGap=size*Number(val('lineHeight'))/100,maxWidth=w*.82;
- const lines=wrapLines(val('titleText'),font,size,maxWidth);const total=(lines.length-1)*lineGap;
- let y=h*Number(val('positionY'))/100-total/2;
- lines.forEach(line=>{strokeText(line,w/2,y,font,size);y+=lineGap});
- const sub=val('subText').trim();if(sub){const sf=/[A-Za-z]/.test(sub)&&!/[آ-ی]/.test(sub)?'Fredoka':font;const ss=Math.min(48,Math.max(28,size*.36));ctx.font='700 '+ss+'px "'+sf+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction='ltr';ctx.lineJoin='round';ctx.lineWidth=10;ctx.strokeStyle=val('innerColor');ctx.strokeText(sub,w/2,h*.82,w*.84);ctx.fillStyle=val('subColor');ctx.fillText(sub,w/2,h*.82,w*.84)}
- scheduleSave();
+function render(){
+ const started=performance.now();
+ try{
+  if(!ctx){debugLog('error','Render متوقف شد: Canvas context وجود ندارد');return}
+  const w=canvas.width,h=canvas.height;drawBg(w,h);if(val('decorToggle'))drawDecor(w,h);
+  const font=val('fontSelect'),size=Number(val('fontSize')),lineGap=size*Number(val('lineHeight'))/100,maxWidth=w*.82;
+  const lines=wrapLines(val('titleText'),font,size,maxWidth);const total=(lines.length-1)*lineGap;
+  let y=h*Number(val('positionY'))/100-total/2;
+  lines.forEach(line=>{strokeText(line,w/2,y,font,size);y+=lineGap});
+  const sub=val('subText').trim();if(sub){const sf=/[A-Za-z]/.test(sub)&&!/[آ-ی]/.test(sub)?'Fredoka':font;const ss=Math.min(48,Math.max(28,size*.36));ctx.font='700 '+ss+'px "'+sf+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction='ltr';ctx.lineJoin='round';ctx.lineWidth=10;ctx.strokeStyle=val('innerColor');ctx.strokeText(sub,w/2,h*.82,w*.84);ctx.fillStyle=val('subColor');ctx.fillText(sub,w/2,h*.82,w*.84)}
+  scheduleSave();debugLog('info','پیش‌نمایش با موفقیت رندر شد',{width:w,height:h,font,size,titleLength:val('titleText').length,durationMs:Math.round(performance.now()-started)});
+ }catch(e){debugLog('error','خطا هنگام رسم پیش‌نمایش',e.stack||e.message||String(e));try{ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#21131b';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#fff';ctx.font='bold 30px sans-serif';ctx.textAlign='center';ctx.fillText('Preview error — open Debug panel',canvas.width/2,canvas.height/2);ctx.restore()}catch(drawError){debugLog('error','نمایش پیام خطا روی Canvas ناموفق بود',drawError.message)}}
 }
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{const data={};controls.forEach(id=>data[id]=val(id));data.ratio=ratio;localStorage.setItem('coverlab-settings',JSON.stringify(data))}catch(e){}},250)}
 function download(){render();const a=document.createElement('a');a.download='coverlab-instagram-cover.png';a.href=canvas.toDataURL('image/png');a.click();toast('کاور با فرمت PNG آماده شد')}
 controls.forEach(id=>{$(id).addEventListener('input',()=>{if(id==='fontSize')show('fontSizeOut',val(id));if(id==='lineHeight')show('lineOut',(Number(val(id))/100).toFixed(2));if(id==='outerWidth')show('outerOut',val(id));if(id==='innerWidth')show('innerOut',val(id));if(id==='positionY')show('positionOut',val(id)+'%');if(id==='overlay')show('overlayOut',val(id)+'%');render()})});
 document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>setSize(b.dataset.ratio)));
 const styleMap={puffy:{font:'Marhey',outer:25,inner:13,size:148,fill:'#fffdf7',outerColor:'#ffbf24',innerColor:'#34213f'},poster:{font:'Jomhuria',outer:27,inner:9,size:170,fill:'#fff5dc',outerColor:'#f343a5',innerColor:'#25152e'},comic:{font:'Oi',outer:24,inner:12,size:148,fill:'#ffffff',outerColor:'#13bce8',innerColor:'#17223c'},retro:{font:'Lalezar',outer:22,inner:10,size:150,fill:'#ffe6ad',outerColor:'#ff851b',innerColor:'#49243b'},bold:{font:'Blaka',outer:30,inner:14,size:155,fill:'#ffffff',outerColor:'#a855f7',innerColor:'#17151d'},clean:{font:'Estedad',outer:17,inner:7,size:132,fill:'#ffffff',outerColor:'#83e52b',innerColor:'#17251b'}};\ndocument.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',()=>{const p=styleMap[b.dataset.style];$('fontSelect').value=p.font;$('outerWidth').value=p.outer;$('innerWidth').value=p.inner;$('fontSize').value=p.size;$('fillColor').value=p.fill;$('outerColor').value=p.outerColor;$('innerColor').value=p.innerColor;document.querySelectorAll('[data-style]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x.dataset.color===p.outerColor));['fontSizeOut','outerOut','innerOut'].forEach((id,i)=>show(id,[p.size,p.outer,p.inner][i]));render()}));\n$('palettes').addEventListener('click',e=>{const b=e.target.closest('[data-color]');if(!b)return;$('outerColor').value=b.dataset.color;document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x===b));render()});
-$('bgUpload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{bgImage=img;render();toast('تصویر پس‌زمینه اضافه شد')};img.src=URL.createObjectURL(f)});
+$('bgUpload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;debugLog('info','بارگذاری تصویر پس‌زمینه شروع شد',{name:f.name,type:f.type,size:f.size});const img=new Image();img.onload=()=>{bgImage=img;debugLog('info','تصویر پس‌زمینه بارگذاری شد',{width:img.width,height:img.height});render();toast('تصویر پس‌زمینه اضافه شد')};img.onerror=()=>debugLog('error','بارگذاری تصویر پس‌زمینه ناموفق بود',{name:f.name,type:f.type});img.src=URL.createObjectURL(f)});
 $('clearBg').addEventListener('click',()=>{bgImage=null;$('bgUpload').value='';render();toast('تصویر پس‌زمینه حذف شد')});
 $('downloadBtn').addEventListener('click',download);$('downloadTop').addEventListener('click',download);
 $('resetBtn').addEventListener('click',()=>{controls.forEach(id=>{const el=$(id);if(el.type==='checkbox')el.checked=defaults[id];else el.value=defaults[id]});bgImage=null;$('bgUpload').value='';setSize('portrait');show('fontSizeOut',defaults.fontSize);show('outerOut',defaults.outerWidth);show('innerOut',defaults.innerWidth);show('lineOut',(defaults.lineHeight/100).toFixed(2));show('positionOut',defaults.positionY+'%');show('overlayOut',defaults.overlay+'%');render();toast('تنظیمات بازنشانی شد')});
-try{const saved=JSON.parse(localStorage.getItem('coverlab-settings')||'null');if(saved){controls.forEach(id=>{if(saved[id]!==undefined){if($(id).type==='checkbox')$(id).checked=saved[id];else $(id).value=saved[id]}});ratio=saved.ratio||'portrait'}}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem('coverlab-settings')||'null');if(saved){controls.forEach(id=>{if(saved[id]!==undefined){if($(id).type==='checkbox')$(id).checked=saved[id];else $(id).value=saved[id]}});ratio=saved.ratio||'portrait';debugLog('info','تنظیمات قبلی بازیابی شد',{ratio})}else debugLog('info','تنظیمات ذخیره‌شده‌ای وجود ندارد')}catch(e){debugLog('error','خواندن تنظیمات ذخیره‌شده ناموفق بود',e.stack||e.message)}
 // Render immediately so the preview does not depend on external font loading.
 setSize(ratio);
 show('fontSizeOut',val('fontSize'));show('outerOut',val('outerWidth'));show('innerOut',val('innerWidth'));show('lineOut',(Number(val('lineHeight'))/100).toFixed(2));show('positionOut',val('positionY')+'%');show('overlayOut',val('overlay')+'%');
 // Re-render when web fonts finish loading; if they are unavailable, the fallback preview remains visible.
-if(document.fonts && document.fonts.ready){document.fonts.ready.then(()=>render()).catch(()=>{});}
+if(document.fonts&&document.fonts.ready){debugLog('info','در انتظار آماده‌شدن فونت‌های وب');document.fonts.ready.then(()=>{debugLog('info','وضعیت فونت‌ها',{status:document.fonts.status,selectedFont:val('fontSelect'),selectedFontLoaded:document.fonts.check('16px "'+val('fontSelect')+'"')});render()}).catch(e=>debugLog('error','Font loading promise failed',e.message||String(e)))}else debugLog('warn','Font Loading API پشتیبانی نمی‌شود');
+$('copyDebug').addEventListener('click',async()=>{const report=debugEntries.join('\\n');try{await navigator.clipboard.writeText(report);toast('لاگ‌ها کپی شدند')}catch(e){const box=document.createElement('textarea');box.value=report;box.style.position='fixed';box.style.opacity='0';document.body.appendChild(box);box.select();try{const ok=document.execCommand('copy');toast(ok?'لاگ‌ها کپی شدند':'کپی خودکار ناموفق بود؛ متن را دستی انتخاب کن')}catch(copyError){toast('کپی خودکار ممکن نیست')}box.remove()}});
+$('clearDebug').addEventListener('click',()=>{debugEntries.length=0;debugLog('info','گزارش توسط کاربر پاک شد')});
+debugLog('info','برنامه راه‌اندازی شد',{url:location.href,canvasWidth:canvas&&canvas.width,canvasHeight:canvas&&canvas.height});
 })();
 </script>
 </body></html>
