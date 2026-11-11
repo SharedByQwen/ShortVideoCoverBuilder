@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101018">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <title>CoverLab | سازنده کاور</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,7 +116,7 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
         <div class="field"><label for="titleText">عنوان اصلی</label><textarea id="titleText" spellcheck="false">یه شروع تازه!</textarea></div>
         <div class="field"><label for="subText">زیرعنوان <span>اختیاری</span></label><input id="subText" type="text" value="Let's see where this goes!" /></div>
         <div class="field"><label for="fontSelect">فونت</label><select id="fontSelect">
-          <option value="Lalezar">لاله‌زار · فارسی فانتزی</option><option value="Estedad">Estedad Black · فارسی ضخیم</option><option value="Vazirmatn">Vazirmatn · فارسی مدرن</option><option value="Lilita One">Lilita One · English playful</option><option value="Fredoka">Fredoka · English rounded</option><option value="Bungee">Bungee · English bold</option>
+          <option value="Marhey">Marhey · فارسی گرد و فانتزی</option><option value="Jomhuria">Jomhuria · پوستر درشت</option><option value="Rakkas">Rakkas · نمایشی</option><option value="Oi">Oi · کمیک و کارتونی</option><option value="Blaka">Blaka · ضخیم و خاص</option><option value="Badeen Display">Badeen Display · نمایشی</option><option value="Lalezar">لاله‌زار · فارسی فانتزی</option><option value="Estedad">Estedad Black · فارسی ضخیم</option><option value="Vazirmatn">Vazirmatn · فارسی مدرن</option><option value="Lilita One">Lilita One · English playful</option><option value="Fredoka">Fredoka · English rounded</option><option value="Bungee">Bungee · English bold</option>
         </select></div>
         <div class="field"><label>اندازه عنوان <output id="fontSizeOut">112</output></label><input id="fontSize" type="range" min="48" max="180" value="112"></div>
         <div class="field"><label>فاصله خطوط <output id="lineOut">1.15</output></label><input id="lineHeight" type="range" min="85" max="150" value="115"></div>
@@ -195,7 +196,11 @@ $('clearBg').addEventListener('click',()=>{bgImage=null;$('bgUpload').value='';r
 $('downloadBtn').addEventListener('click',download);$('downloadTop').addEventListener('click',download);
 $('resetBtn').addEventListener('click',()=>{controls.forEach(id=>{const el=$(id);if(el.type==='checkbox')el.checked=defaults[id];else el.value=defaults[id]});bgImage=null;$('bgUpload').value='';setSize('portrait');show('fontSizeOut',defaults.fontSize);show('outerOut',defaults.outerWidth);show('innerOut',defaults.innerWidth);show('lineOut',(defaults.lineHeight/100).toFixed(2));show('positionOut',defaults.positionY+'%');show('overlayOut',defaults.overlay+'%');render();toast('تنظیمات بازنشانی شد')});
 try{const saved=JSON.parse(localStorage.getItem('coverlab-settings')||'null');if(saved){controls.forEach(id=>{if(saved[id]!==undefined){if($(id).type==='checkbox')$(id).checked=saved[id];else $(id).value=saved[id]}});ratio=saved.ratio||'portrait'}}catch(e){}
-document.fonts.ready.then(()=>{setSize(ratio);show('fontSizeOut',val('fontSize'));show('outerOut',val('outerWidth'));show('innerOut',val('innerWidth'));show('lineOut',(Number(val('lineHeight'))/100).toFixed(2));show('positionOut',val('positionY')+'%');show('overlayOut',val('overlay')+'%');render()});
+// Render immediately so the preview does not depend on external font loading.
+setSize(ratio);
+show('fontSizeOut',val('fontSize'));show('outerOut',val('outerWidth'));show('innerOut',val('innerWidth'));show('lineOut',(Number(val('lineHeight'))/100).toFixed(2));show('positionOut',val('positionY')+'%');show('overlayOut',val('overlay')+'%');
+// Re-render when web fonts finish loading; if they are unavailable, the fallback preview remains visible.
+if(document.fonts && document.fonts.ready){document.fonts.ready.then(()=>render()).catch(()=>{});}
 })();
 </script>
 </body></html>
