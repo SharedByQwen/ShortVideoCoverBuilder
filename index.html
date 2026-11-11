@@ -10,211 +10,139 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;600;700;800;900&family=Lalezar&family=Marhey:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#101018;--panel:#191923;--panel2:#222230;--line:#303044;--muted:#9999ad;--text:#f6f4ff;--accent:#a78bfa;--accent2:#7c5cff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -20%,#292044 0,transparent 42%),var(--bg);color:var(--text);font-family:Estedad,Vazirmatn,sans-serif;min-height:100vh}
-button,input,textarea,select{font:inherit}button{cursor:pointer}
-.topbar{height:68px;border-bottom:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);position:sticky;top:0;background:#101018df;backdrop-filter:blur(18px);z-index:5}
-.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.5px}.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#f9ca55,#f36a9d 48%,#8769ff);display:grid;place-items:center;color:#17131e;font-size:21px}.brand small{display:block;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:1.5px;direction:ltr}
-.top-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 15px;border-radius:11px;font-size:12px;font-weight:700}.btn:hover{border-color:#8170c8}.btn.primary{background:linear-gradient(135deg,#a78bfa,#7957ee);border:0;color:#171322;box-shadow:0 7px 22px #7957ee35}.btn:disabled{opacity:.45;cursor:not-allowed}
-main{max-width:1440px;margin:auto;padding:28px clamp(14px,3vw,38px) 48px}.intro{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}.intro h1{font-size:clamp(22px,3vw,32px);margin:0 0 4px;font-weight:900}.intro p{color:var(--muted);margin:0;font-size:13px}.tag{font-size:11px;color:#c7b8ff;background:#a78bfa18;border:1px solid #a78bfa40;border-radius:99px;padding:7px 12px;white-space:nowrap}
-.workspace{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:22px;align-items:start}.preview-panel,.controls{background:linear-gradient(160deg,#1c1c29,#171720);border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:0 18px 55px #0002}.panel-head{padding:15px 18px;border-bottom:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between}.panel-head strong{font-size:13px}.panel-head span{font-size:11px;color:var(--muted)}
-.preview-area{min-height:570px;padding:30px;display:flex;align-items:center;justify-content:center;background-color:#15151e;background-image:radial-gradient(#ffffff0c 1px,transparent 1px);background-size:16px 16px}
-.canvas-wrap{width:min(100%,420px);position:relative;box-shadow:0 20px 60px #0009;border-radius:4px;overflow:hidden;line-height:0}.canvas-wrap canvas{width:100%;height:auto;display:block}
-.preview-bottom{padding:12px 16px;border-top:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between;gap:12px}.ratio-tabs{display:flex;gap:6px}.ratio-tabs button{background:transparent;border:1px solid var(--line);color:var(--muted);padding:6px 10px;border-radius:8px;font-size:11px}.ratio-tabs button.active{background:#a78bfa20;border-color:#a78bfa;color:#d9ceff}.hint{font-size:10px;color:var(--muted)}
-.controls{padding:0 17px 17px}.section{padding:16px 0;border-bottom:1px solid #ffffff10}.section:last-child{border:0;padding-bottom:0}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:12px;font-weight:800}.section-title small{font-size:10px;color:var(--muted);font-weight:500}
-.variants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}.variant-btn{border:1px solid var(--line);background:#11111a;color:#ddd7ef;border-radius:10px;padding:10px 8px;font-size:11px;font-weight:800;text-align:right}.variant-btn small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.variant-btn.active{border-color:#b69cff;background:#a78bfa20;color:#fff}.variant-btn:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
-.field{margin:10px 0}.style-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.style-preset{border:1px solid var(--line);background:#11111a;color:#ddd7ef;border-radius:10px;padding:9px 5px;font-size:11px;font-weight:800}.style-preset span{display:block;font-size:9px;color:var(--muted);font-weight:500;margin-top:3px}.style-preset.active{border-color:#b69cff;background:#a78bfa20;color:#fff;box-shadow:inset 0 0 0 1px #a78bfa40}.advanced{border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-top:12px;background:#11111a}.advanced summary{cursor:pointer;color:#cfc8e8;font-size:11px;font-weight:800}.advanced[open] summary{margin-bottom:10px}.field label{display:flex;justify-content:space-between;gap:10px;color:#c9c7d7;font-size:11px;margin-bottom:6px}.field label output{color:#b9a8ff;font-variant-numeric:tabular-nums;direction:ltr}
-textarea,select,input[type=text]{width:100%;border:1px solid var(--line);background:#11111a;color:var(--text);border-radius:10px;padding:10px 11px;outline:none;font-size:12px}textarea{resize:vertical;min-height:76px;line-height:1.8}textarea:focus,select:focus,input:focus{border-color:#9276ef}
-select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:ltr}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.color-field{display:flex;align-items:center;gap:9px;background:#11111a;border:1px solid var(--line);border-radius:10px;padding:6px 9px}.color-field input[type=color]{width:27px;height:27px;border:0;background:transparent;padding:0;cursor:pointer}.color-field span{font-size:10px;color:#c9c7d7}
-.palettes{display:flex;gap:8px;flex-wrap:wrap}.swatch{width:28px;height:28px;border:2px solid #ffffff55;border-radius:50%;padding:0;box-shadow:0 0 0 2px transparent}.swatch.active{box-shadow:0 0 0 2px #c8b9ff;border-color:#fff}
-.upload{display:flex;align-items:center;justify-content:center;gap:9px;border:1px dashed #55516d;background:#11111a;border-radius:11px;padding:13px;color:#cfc8e8;font-size:11px;cursor:pointer}.upload:hover{border-color:#a78bfa}.upload input{display:none}
-.checkrow{display:flex;align-items:center;gap:8px;color:#c9c7d7;font-size:11px}.checkrow input{accent-color:#a78bfa}
-.small-note{font-size:10px;color:var(--muted);line-height:1.8;margin-top:8px}.bottom-actions{display:flex;gap:8px;margin-top:14px}.bottom-actions .btn{flex:1}
-.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#eee9ff;color:#1c1728;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:900px){
- .workspace{grid-template-columns:minmax(0,1fr);gap:16px}
- .controls{order:2;width:100%}
- .preview-area{min-height:0;padding:22px}
- .canvas-wrap{width:min(100%,390px)}
-}
-@media(max-width:600px){
- body{min-width:320px}
- .topbar{height:58px;padding:0 12px;gap:8px}
- .brand{gap:8px;font-size:14px}
- .brand small{font-size:8px;letter-spacing:1px}
- .logo{width:32px;height:32px;border-radius:10px;font-size:18px}
- .top-actions{gap:6px}
- .top-actions .btn{padding:8px 10px;font-size:11px;white-space:nowrap}
- .top-actions .secondary{display:none}
- main{padding:16px 10px 28px}
- .intro{align-items:flex-start;flex-direction:column;gap:8px;margin-bottom:14px}
- .intro h1{font-size:20px;line-height:1.65}
- .intro p{font-size:11px;line-height:1.9}
- .tag{font-size:9px;padding:5px 9px}
- .workspace{gap:12px}
- .preview-panel,.controls{border-radius:14px}
- .panel-head{padding:11px 12px}
- .panel-head strong{font-size:12px}
- .panel-head span{font-size:9px}
- .preview-area{padding:9px;min-height:0}
- .canvas-wrap{width:min(100%,420px)}
- .preview-bottom{padding:10px;gap:9px;align-items:center}
- .ratio-tabs{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
- .ratio-tabs button{padding:9px 4px;font-size:10px;min-height:38px}
- .hint{font-size:9px;text-align:center}
- .controls{padding:0 12px 13px}
- .section{padding:13px 0}
- .section-title{font-size:12px;margin-bottom:10px}
- .field{margin:11px 0}
- .field label{font-size:11px}
- textarea,select,input[type=text]{font-size:16px;padding:11px 10px}
- textarea{min-height:82px}
- select{height:44px}
- input[type=range]{height:28px;margin:3px 0;touch-action:pan-y}
- .grid2{gap:8px}
- .color-field{min-height:43px;padding:5px 7px;gap:6px}
- .color-field input[type=color]{width:30px;height:30px;flex:0 0 30px}
- .color-field span{font-size:9px}
- .swatch{width:34px;height:34px}
- .palettes{gap:10px}
- .upload{min-height:46px;font-size:11px}
- .style-presets{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
- .style-preset{min-height:48px;font-size:11px}
- .advanced{padding:11px}
- .advanced summary{min-height:28px;display:flex;align-items:center}
- .bottom-actions{position:sticky;bottom:8px;z-index:4;background:#171720ed;padding:8px;border:1px solid var(--line);border-radius:12px;box-shadow:0 5px 24px #0008}
- .bottom-actions .btn{min-height:42px;font-size:11px;padding:8px 6px}
- .small-note{font-size:9px}
- .toast{bottom:14px;width:max-content;max-width:calc(100vw - 28px);text-align:center}
-}
-@media(max-width:360px){
- .top-actions .btn.primary{padding:8px}
- .brand{font-size:13px}
- .brand small{font-size:7px}
- .grid2{grid-template-columns:1fr 1fr;gap:6px}
- .color-field span{font-size:8px}
- .ratio-tabs button{font-size:9px}
-}
+:root{color-scheme:dark;--bg:#101018;--panel:#191923;--line:#303044;--muted:#9999ad;--text:#f6f4ff;--accent:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -20%,#292044 0,transparent 42%),var(--bg);color:var(--text);font-family:Estedad,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.topbar{height:64px;border-bottom:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,46px);position:sticky;top:0;background:#101018ed;backdrop-filter:blur(16px);z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logo{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,#f9ca55,#f36a9d 48%,#8769ff);display:grid;place-items:center;color:#17131e;font-size:21px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.4px;direction:ltr}
+.btn{border:1px solid var(--line);background:#222230;color:var(--text);padding:9px 14px;border-radius:10px;font-size:12px;font-weight:700}.btn.primary{background:linear-gradient(135deg,#a78bfa,#7957ee);border:0;color:#171322}
+main{max-width:1380px;margin:auto;padding:24px clamp(12px,3vw,34px) 40px}.intro{margin-bottom:18px}.intro h1{font-size:clamp(21px,3vw,30px);margin:0 0 4px;font-weight:900}.intro p{color:var(--muted);margin:0;font-size:12px}
+.workspace{display:grid;grid-template-columns:minmax(300px,390px) minmax(0,1fr);gap:18px;align-items:start}
+.controls,.preview-panel{background:linear-gradient(160deg,#1c1c29,#171720);border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 16px 48px #0002}
+.controls{padding:0 16px 15px}.section{padding:15px 0;border-bottom:1px solid #ffffff10}.section:last-child{border:0}.section-title{font-size:12px;font-weight:900;margin-bottom:10px;display:flex;justify-content:space-between}.muted{color:var(--muted);font-size:10px;font-weight:500}
+.part-select,.style-list,.decors{display:grid;gap:7px}.part-select{grid-template-columns:1fr 1fr}.style-list{grid-template-columns:repeat(2,1fr)}.decors{grid-template-columns:repeat(4,1fr)}
+.choice{border:1px solid var(--line);background:#11111a;color:#d8d3e7;border-radius:10px;padding:10px 8px;font-size:11px;font-weight:800;text-align:center}.choice small{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.choice.active{border-color:#b69cff;background:#a78bfa20;color:white;box-shadow:inset 0 0 0 1px #a78bfa30}
+.field{margin:9px 0}.field label{display:block;color:#c9c7d7;font-size:11px;margin-bottom:6px}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#11111a;color:var(--text);border-radius:10px;padding:10px;outline:none;font-size:13px}textarea{resize:vertical;min-height:76px;line-height:1.8}textarea:focus,input:focus{border-color:#9276ef}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;font-size:11px;color:#d8d3e7}.toggle-row input{width:17px;height:17px;accent-color:#a78bfa}
+.color-modes{display:grid;grid-template-columns:1fr 1fr;gap:7px}.color-mode{border:1px solid var(--line);background:#11111a;color:#ddd7ef;border-radius:10px;padding:10px;font-size:11px;font-weight:800}.color-mode.active{border-color:#b69cff;background:#a78bfa20;color:white}
+.palette{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.swatch{width:29px;height:29px;border:2px solid #ffffff55;border-radius:50%;padding:0;box-shadow:0 0 0 2px transparent}.swatch.active{box-shadow:0 0 0 2px #c8b9ff;border-color:white}
+.custom-color{display:flex;align-items:center;gap:8px;margin-top:10px;color:var(--muted);font-size:10px}.custom-color input{width:32px;height:30px;padding:0;border:0;background:none}
+.upload{display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed #55516d;background:#11111a;border-radius:10px;padding:12px;color:#d8d3e7;font-size:11px;cursor:pointer}.upload input{display:none}
+.preview-head{padding:14px 17px;border-bottom:1px solid #ffffff10;display:flex;justify-content:space-between;font-size:12px;font-weight:800}.preview-head span{color:var(--muted);font-size:10px;font-weight:500}
+.preview-area{min-height:550px;padding:26px;display:flex;align-items:center;justify-content:center;background-color:#15151e;background-image:radial-gradient(#ffffff0c 1px,transparent 1px);background-size:16px 16px}
+.canvas-wrap{width:min(100%,430px);box-shadow:0 20px 60px #0009;overflow:hidden;line-height:0}.canvas-wrap canvas{width:100%;height:auto;display:block}
+.preview-bottom{padding:11px 15px;border-top:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between;gap:10px}.ratios{display:flex;gap:6px}.ratios button{background:transparent;border:1px solid var(--line);color:var(--muted);padding:7px 10px;border-radius:8px;font-size:10px}.ratios button.active{background:#a78bfa20;border-color:#a78bfa;color:#e2d9ff}
+.actions{display:flex;gap:8px;margin-top:13px}.actions .btn{flex:1}.note{color:var(--muted);font-size:9px;line-height:1.8;margin:10px 0 0}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,15px);background:#eee9ff;color:#1c1728;padding:10px 16px;border-radius:10px;font-size:11px;font-weight:800;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.controls{order:2}.preview-area{min-height:0}.canvas-wrap{width:min(100%,390px)}}
+@media(max-width:560px){.topbar{height:56px;padding:0 11px}.brand{font-size:14px}.logo{width:31px;height:31px}.topbar .btn{padding:8px 10px;font-size:10px}main{padding:15px 9px 25px}.intro{margin-bottom:13px}.intro h1{font-size:20px}.intro p{font-size:10px;line-height:1.8}.controls,.preview-panel{border-radius:13px}.controls{padding:0 11px 12px}.section{padding:12px 0}.preview-head{padding:11px 12px}.preview-area{padding:8px}.preview-bottom{padding:9px;flex-wrap:wrap}.ratios{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.ratios button{min-height:37px}.style-list{gap:6px}.choice{padding:9px 5px}.decors{grid-template-columns:repeat(4,1fr)}textarea,input[type=text]{font-size:16px}.swatch{width:32px;height:32px}}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><div class="logo">✳</div><div>CoverLab<small>SHORT VIDEO COVER BUILDER</small></div></div>
-  <div class="top-actions"><button class="btn secondary" id="resetBtn">بازنشانی</button><button class="btn primary" id="downloadTop">دانلود PNG ↓</button></div>
-</header>
+<header class="topbar"><div class="brand"><div class="logo">✳</div><div>CoverLab<small>SHORT VIDEO COVER BUILDER</small></div></div><button class="btn primary" id="downloadTop">دانلود PNG ↓</button></header>
 <main>
-  <div class="intro"><div><h1>کاورت رو بساز، نه از صفر؛ هر بار فقط تغییرش بده.</h1><p>یک استودیوی ساده برای ساخت کاورهای رنگی با تایپوگرافی استیکری فارسی و انگلیسی.</p></div><div class="tag">نسخه آزمایشی ۰.۱ · پردازش داخل مرورگر</div></div>
-  <div class="workspace">
-    <section class="preview-panel">
-      <div class="panel-head"><strong>پیش‌نمایش زنده</strong><span>خروجی با وضوح اصلی 1080px</span></div>
-      <div class="preview-area"><div class="canvas-wrap"><canvas id="cover" width="1080" height="1350"></canvas></div></div>
-      <div class="preview-bottom"><div class="ratio-tabs"><button data-ratio="portrait" class="active">۴:۵ پست</button><button data-ratio="square">۱:۱ مربع</button><button data-ratio="story">۹:۱۶ استوری</button></div><span class="hint" id="dimensionLabel">1080 × 1350 px</span></div>
-    </section>
-    <aside class="controls">
-      <div class="section">
-        <div class="section-title">متن کاور <small>فارسی یا English</small></div>
-        <div class="field"><label for="titleText">عنوان اصلی</label><textarea id="titleText" spellcheck="false">یه شروع تازه!</textarea></div>
-        <div class="field"><label for="subText">زیرعنوان <span>اختیاری</span></label><input id="subText" type="text" value="Let's see where this goes!" /></div>
-        <div class="field"><label for="designStyle">جهت طراحی</label><select id="designStyle"><option value="guided">پیشنهاد هوشمند (متعادل)</option><option value="playful">فانتزی و رنگی</option><option value="bold">بولد و چشمگیر</option><option value="minimal">مینیمال و خلوت</option></select></div>
-        <button class="btn primary" id="generateBtn" style="width:100%;padding:12px">✦ ساخت ۴ پیشنهاد طراحی</button>
-        <div id="variants" class="variants" aria-live="polite"><span class="small-note">بعد از زدن دکمه، چهار ترکیب‌بندی برای انتخاب نمایش داده می‌شود.</span></div>
-        <div class="field"><label for="fontSelect">فونت پیشنهادی (قابل تغییر)</label><select id="fontSelect">
-          <option value="Marhey">Marhey · فارسی فانتزی</option><option value="Lalezar">Lalezar · فارسی بولد</option><option value="Estedad">Estedad · فارسی مینیمال</option><option value="Fredoka">Fredoka · English rounded</option><option value="Lilita One">Lilita One · English display</option>
-        </select></div>
-        <div class="field"><label>اندازه عنوان <output id="fontSizeOut">112</output></label><input id="fontSize" type="range" min="48" max="180" value="112"></div>
-        <div class="field"><label>فاصله خطوط <output id="lineOut">1.15</output></label><input id="lineHeight" type="range" min="85" max="150" value="115"></div>
-      </div>
-      <div class="section">
-        <div class="section-title">استایل نوشته</div>
-        <div class="grid2">
-          <div class="field"><label>رنگ متن</label><div class="color-field"><input id="fillColor" type="color" value="#ffffff"><span>Fill</span></div></div>
-          <div class="field"><label>حاشیه داخلی</label><div class="color-field"><input id="innerColor" type="color" value="#17151d"><span>Stroke</span></div></div>
-          <div class="field"><label>بوردر بیرونی</label><div class="color-field"><input id="outerColor" type="color" value="#ffbf24"><span>Outline</span></div></div>
-          <div class="field"><label>رنگ زیرعنوان</label><div class="color-field"><input id="subColor" type="color" value="#ffcf48"><span>Subtitle</span></div></div>
-        </div>
-        <details class="advanced"><summary>تنظیمات حرفه‌ای تایپوگرافی</summary><div class="field"><label>ضخامت بوردر بیرونی <output id="outerOut">22</output></label><input id="outerWidth" type="range" min="0" max="42" value="22"></div>
-        <div class="field"><label>ضخامت حاشیه داخلی <output id="innerOut">12</output></label><input id="innerWidth" type="range" min="0" max="30" value="12"></div>
-        <div class="field"><label>موقعیت عمودی عنوان <output id="positionOut">52%</output></label><input id="positionY" type="range" min="20" max="80" value="52"></div></details>
-        <div class="field"><label>پالت‌های آماده</label><div class="palettes" id="palettes">
-          <button class="swatch active" title="زرد" data-color="#ffbf24" style="background:#ffbf24"></button><button class="swatch" title="آبی" data-color="#13bce8" style="background:#13bce8"></button><button class="swatch" title="صورتی" data-color="#f343a5" style="background:#f343a5"></button><button class="swatch" title="بنفش" data-color="#a855f7" style="background:#a855f7"></button><button class="swatch" title="سبز" data-color="#83e52b" style="background:#83e52b"></button><button class="swatch" title="نارنجی" data-color="#ff851b" style="background:#ff851b"></button>
-        </div></div>
-      </div>
-      <div class="section">
-        <div class="section-title">پس‌زمینه</div>
-        <div class="grid2">
-          <div class="field"><label>رنگ اول</label><div class="color-field"><input id="bgColor" type="color" value="#211c35"><span>Background</span></div></div>
-          <div class="field"><label>رنگ دوم</label><div class="color-field"><input id="bgColor2" type="color" value="#11131e"><span>Gradient</span></div></div>
-        </div>
-        <div class="field"><label>تصویر پس‌زمینه</label><label class="upload">＋ انتخاب تصویر از دستگاه<input id="bgUpload" type="file" accept="image/*"></label></div>
-        <div class="field"><label>تیرگی روی تصویر <output id="overlayOut">20%</output></label><input id="overlay" type="range" min="0" max="75" value="20"></div>
-        <div class="field"><label class="checkrow"><input id="decorToggle" type="checkbox"> تزئینات کوچک و استیکری (اختیاری)</label></div>
-        <div class="field"><label class="checkrow"><input id="strokeToggle" type="checkbox" checked> فعال بودن حاشیه نوشته</label></div>
-      </div>
-      <div class="bottom-actions"><button class="btn" id="clearBg">حذف تصویر پس‌زمینه</button><button class="btn primary" id="downloadBtn">دانلود کاور PNG</button></div>
-      <p class="small-note">پیش‌نمایش و خروجی هر دو در همین مرورگر ساخته می‌شوند. تصویر انتخابی از دستگاهت جایی آپلود نمی‌شود. تنظیمات در همین مرورگر ذخیره می‌شوند.</p>
-    </aside>
+<div class="intro"><h1>کاورت رو ساده و سریع بساز</h1><p>سبک رو انتخاب کن، متن رو بنویس و رنگ و جزئیاتش رو تنظیم کن.</p></div>
+<div class="workspace">
+<aside class="controls">
+ <section class="section">
+  <div class="section-title">۱. انتخاب بخش برای ویرایش <span class="muted">روی پیش‌نمایش هم می‌تونی بزنی</span></div>
+  <div class="part-select"><button class="choice active" data-part="title">عنوان اصلی</button><button class="choice" data-part="subtitle">زیرعنوان</button></div>
+  <div class="field"><label for="titleText">عنوان اصلی</label><textarea id="titleText">یه شروع تازه!</textarea></div>
+  <div class="field"><label for="subText">زیرعنوان (اختیاری)</label><input id="subText" type="text" value="Let's see where this goes!"></div>
+ </section>
+ <section class="section">
+  <div class="section-title">۲. سبک نوشته <span class="muted">فونت فارسی و انگلیسی هماهنگ می‌شن</span></div>
+  <div class="style-list">
+   <button class="choice active" data-style="minimal">مینیمال<small>ساده و خوانا</small></button>
+   <button class="choice" data-style="fancy">فانتزی<small>گرد و بازیگوش</small></button>
+   <button class="choice" data-style="bold">بولد<small>درشت و محکم</small></button>
+   <button class="choice" data-style="display">نمایشی<small>خاص و پرانرژی</small></button>
   </div>
+  <div class="toggle-row"><span>حاشیه عنوان</span><input id="titleStroke" type="checkbox" checked></div>
+  <div class="toggle-row"><span>حاشیه زیرعنوان</span><input id="subStroke" type="checkbox"></div>
+ </section>
+ <section class="section">
+  <div class="section-title">۳. رنگ نوشته انتخاب‌شده</div>
+  <div class="color-modes"><button class="color-mode active" data-color-mode="fill">رنگ متن</button><button class="color-mode" data-color-mode="stroke">حاشیه متن</button></div>
+  <div class="palette" id="palette">
+   <button class="swatch active" data-color="#ffffff" style="background:#ffffff" aria-label="سفید"></button>
+   <button class="swatch" data-color="#ffbf24" style="background:#ffbf24" aria-label="زرد"></button>
+   <button class="swatch" data-color="#13bce8" style="background:#13bce8" aria-label="آبی"></button>
+   <button class="swatch" data-color="#f343a5" style="background:#f343a5" aria-label="صورتی"></button>
+   <button class="swatch" data-color="#a855f7" style="background:#a855f7" aria-label="بنفش"></button>
+   <button class="swatch" data-color="#83e52b" style="background:#83e52b" aria-label="سبز"></button>
+   <button class="swatch" data-color="#ff851b" style="background:#ff851b" aria-label="نارنجی"></button>
+   <button class="swatch" data-color="#17151d" style="background:#17151d" aria-label="مشکی"></button>
+  </div>
+  <label class="custom-color">رنگ دلخواه <input id="customColor" type="color" value="#ffffff"></label>
+ </section>
+ <section class="section">
+  <div class="section-title">۴. پس‌زمینه</div>
+  <div class="field"><label>رنگ پس‌زمینه (وقتی عکس نداری)</label><div class="custom-color"><input id="bgColor" type="color" value="#211c35"><span>انتخاب رنگ پس‌زمینه</span></div></div>
+  <label class="upload">＋ انتخاب عکس پس‌زمینه از دستگاه<input id="bgUpload" type="file" accept="image/*"></label>
+ </section>
+ <section class="section">
+  <div class="section-title">۵. تزئینات آماده <span class="muted">فقط یکی یا هیچ‌کدام</span></div>
+  <div class="decors">
+   <button class="choice active" data-decor="none">خاموش</button>
+   <button class="choice" data-decor="spark">✦<small>درخشش</small></button>
+   <button class="choice" data-decor="dots">•••<small>نقطه‌ها</small></button>
+   <button class="choice" data-decor="lines">╱<small>خطوط</small></button>
+   <button class="choice" data-decor="arrows">➜<small>فلش</small></button>
+   <button class="choice" data-decor="circles">◯<small>دایره</small></button>
+   <button class="choice" data-decor="confetti">✳<small>رنگی</small></button>
+  </div>
+ </section>
+ <div class="actions"><button class="btn" id="resetBtn">بازنشانی</button><button class="btn primary" id="downloadBtn">دانلود کاور PNG</button></div>
+ <p class="note">همه‌چیز داخل مرورگر انجام می‌شه؛ عکس پس‌زمینه جایی آپلود نمی‌شه و تنظیماتت روی همین دستگاه می‌مونه.</p>
+</aside>
+<section class="preview-panel">
+ <div class="preview-head"><strong>پیش‌نمایش کاور</strong><span id="dimensionLabel">1080 × 1350 px</span></div>
+ <div class="preview-area"><div class="canvas-wrap"><canvas id="cover" width="1080" height="1350"></canvas></div></div>
+ <div class="preview-bottom"><div class="ratios"><button class="active" data-ratio="portrait">۴:۵ پست</button><button data-ratio="square">۱:۱ مربع</button><button data-ratio="story">۹:۱۶ استوری</button></div><span class="muted">برای ویرایش، عنوان یا زیرعنوان را انتخاب کن</span></div>
+</section>
+</div>
 </main>
 <div class="toast" id="toast"></div>
 <script>
-(() => {
-const $=id=>document.getElementById(id), canvas=$('cover'), ctx=canvas.getContext('2d');
-const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",fontSelect:'Marhey',fontSize:142,lineHeight:115,fillColor:'#ffffff',innerColor:'#17151d',outerColor:'#ffbf24',subColor:'#ffcf48',outerWidth:22,innerWidth:12,positionY:52,bgColor:'#211c35',bgColor2:'#11131e',overlay:20,decorToggle:false,strokeToggle:true,ratio:'portrait'};
-let bgImage=null, ratio='portrait', saveTimer;
-const controls=['titleText','subText','fontSelect','fontSize','lineHeight','fillColor','innerColor','outerColor','subColor','outerWidth','innerWidth','positionY','bgColor','bgColor2','overlay','decorToggle','strokeToggle'];
-function val(id){return $(id).type==='checkbox'?$(id).checked:$(id).value}
-function show(id,v){$(id).textContent=v}
-function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2100)}
-function setSize(r){ratio=r;const sizes={portrait:[1080,1350,'1080 × 1350 px'],square:[1080,1080,'1080 × 1080 px'],story:[1080,1920,'1080 × 1920 px']};canvas.width=sizes[r][0];canvas.height=sizes[r][1];$('dimensionLabel').textContent=sizes[r][2];document.querySelectorAll('[data-ratio]').forEach(b=>b.classList.toggle('active',b.dataset.ratio===r));render()}
-function roundedRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
-function drawBg(w,h){const g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,val('bgColor'));g.addColorStop(1,val('bgColor2'));ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
- if(bgImage){const scale=Math.max(w/bgImage.width,h/bgImage.height),iw=bgImage.width*scale,ih=bgImage.height*scale;ctx.drawImage(bgImage,(w-iw)/2,(h-ih)/2,iw,ih);const a=Number(val('overlay'))/100;ctx.fillStyle='rgba(8,7,17,'+a+')';ctx.fillRect(0,0,w,h)}
-}
-function drawDecor(w,h){ctx.save();ctx.globalAlpha=.9;const c=val('outerColor');ctx.strokeStyle=c;ctx.lineWidth=9;ctx.lineCap='round';
- const marks=[[w*.13,h*.22,-1],[w*.86,h*.25,1],[w*.18,h*.77,1],[w*.82,h*.78,-1]];
- marks.forEach(([x,y,d])=>{ctx.save();ctx.translate(x,y);ctx.rotate(d*.3);for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo((i-1)*28,-25);ctx.lineTo((i-1)*40,-54);ctx.stroke()}ctx.restore()});
- ctx.fillStyle=c;ctx.beginPath();ctx.arc(w*.82,h*.18,13,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(w*.17,h*.83,9,0,Math.PI*2);ctx.fill();ctx.restore();
-}
-function wrapLines(text,font,size,maxWidth){ctx.font='900 '+size+'px "'+font+'"';const paragraphs=text.split('\n'),lines=[];paragraphs.forEach(p=>{if(!p){lines.push('');return}const words=p.split(/\s+/);let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}lines.push(line)});return lines}
-function strokeText(text,x,y,font,size){ctx.font='900 '+size+'px "'+font+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction=/[A-Za-z]/.test(text)&&!/[آ-ی]/.test(text)?'ltr':'rtl';ctx.lineJoin='round';ctx.miterLimit=2;
- const ow=val('strokeToggle')?Number(val('outerWidth'))*2:0,iw=val('strokeToggle')?Number(val('innerWidth'))*2:0;
- if(ow>0){ctx.strokeStyle=val('outerColor');ctx.lineWidth=ow;ctx.strokeText(text,x,y)}
- if(iw>0){ctx.strokeStyle=val('innerColor');ctx.lineWidth=iw;ctx.strokeText(text,x,y)}
- ctx.fillStyle=val('fillColor');ctx.fillText(text,x,y);
-}
-function render(){if(!ctx)return;const w=canvas.width,h=canvas.height;drawBg(w,h);if(val('decorToggle'))drawDecor(w,h);
- const font=val('fontSelect'),size=Number(val('fontSize')),lineGap=size*Number(val('lineHeight'))/100,maxWidth=w*.82;
- const lines=wrapLines(val('titleText'),font,size,maxWidth);const total=(lines.length-1)*lineGap;
- let y=h*Number(val('positionY'))/100-total/2;
- lines.forEach(line=>{strokeText(line,w/2,y,font,size);y+=lineGap});
- const sub=val('subText').trim();if(sub){const sf=/[A-Za-z]/.test(sub)&&!/[آ-ی]/.test(sub)?'Fredoka':font;const ss=Math.min(48,Math.max(28,size*.36));ctx.font='700 '+ss+'px "'+sf+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction='ltr';ctx.lineJoin='round';ctx.lineWidth=10;ctx.strokeStyle=val('innerColor');ctx.strokeText(sub,w/2,h*.82,w*.84);ctx.fillStyle=val('subColor');ctx.fillText(sub,w/2,h*.82,w*.84)}
- scheduleSave();
-}
-function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{const data={};controls.forEach(id=>data[id]=val(id));data.ratio=ratio;localStorage.setItem('coverlab-settings',JSON.stringify(data))}catch(e){}},250)}
-function download(){render();const a=document.createElement('a');a.download='coverlab-instagram-cover.png';a.href=canvas.toDataURL('image/png');a.click();toast('کاور با فرمت PNG آماده شد')}
-function loadSelectedFont(){const font=val('fontSelect'),sample=val('titleText')||'کاور';if(!document.fonts){render();return}document.fonts.load('700 112px "'+font+'"',sample).then(()=>render()).catch(()=>render())}
-controls.forEach(id=>{$(id).addEventListener('input',()=>{if(id==='fontSize')show('fontSizeOut',val(id));if(id==='lineHeight')show('lineOut',(Number(val(id))/100).toFixed(2));if(id==='outerWidth')show('outerOut',val(id));if(id==='innerWidth')show('innerOut',val(id));if(id==='positionY')show('positionOut',val(id)+'%');if(id==='overlay')show('overlayOut',val(id)+'%');if(id==='fontSelect')loadSelectedFont();else render()})});
-document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>setSize(b.dataset.ratio)));
-const styleMap={puffy:{font:'Marhey',outer:25,inner:13,size:148,fill:'#fffdf7',outerColor:'#ffbf24',innerColor:'#34213f'},poster:{font:'Lalezar',outer:27,inner:9,size:170,fill:'#fff5dc',outerColor:'#f343a5',innerColor:'#25152e'},comic:{font:'Marhey',outer:24,inner:12,size:148,fill:'#ffffff',outerColor:'#13bce8',innerColor:'#17223c'},retro:{font:'Lalezar',outer:22,inner:10,size:150,fill:'#ffe6ad',outerColor:'#ff851b',innerColor:'#49243b'},bold:{font:'Estedad',outer:30,inner:14,size:155,fill:'#ffffff',outerColor:'#a855f7',innerColor:'#17151d'},clean:{font:'Estedad',outer:0,inner:0,size:132,fill:'#ffffff',outerColor:'#83e52b',innerColor:'#17251b'}};
-function applyStyle(key,button){const p=styleMap[key];if(!p)return;$('fontSelect').value=p.font;$('outerWidth').value=p.outer;$('innerWidth').value=p.inner;$('fontSize').value=p.size;$('fillColor').value=p.fill;$('outerColor').value=p.outerColor;$('innerColor').value=p.innerColor;$('strokeToggle').checked=(p.outer+p.inner)>0;document.querySelectorAll('.variant-btn').forEach(x=>x.classList.toggle('active',x===button));document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x.dataset.color===p.outerColor));show('fontSizeOut',p.size);show('outerOut',p.outer);show('innerOut',p.inner);loadSelectedFont()}
-const variantSets={guided:[['clean','مینیمال','خوانا و خلوت'],['puffy','فانتزی','گرد و رنگی'],['bold','بولد','عنوان قدرتمند'],['poster','پوستری','چیدمان نمایشی']],playful:[['puffy','فانتزی','گرد و رنگی'],['comic','استیکری','رنگی و بازیگوش'],['retro','رترو','گرم و پرانرژی'],['poster','پوستری','نمایشی']],bold:[['bold','بولد','حاشیه ضخیم'],['poster','پوستری','عنوان بزرگ'],['retro','رترو','کنتراست بالا'],['clean','مینیمال','بدون شلوغی']],minimal:[['clean','مینیمال','بدون حاشیه'],['bold','بولد','تأکید روی عنوان'],['puffy','نرم','گرد و ساده'],['poster','پوستری','ترکیب‌بندی متفاوت']]};
-function generateVariants(){const set=variantSets[val('designStyle')]||variantSets.guided;$('variants').innerHTML=set.map(([key,name,desc])=>'<button type="button" class="variant-btn" data-variant="'+key+'">'+name+'<small>'+desc+'</small></button>').join('');$('variants').querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>applyStyle(b.dataset.variant,b)));const first=$('variants').querySelector('button');if(first)first.click();toast('۴ پیشنهاد طراحی آماده شد')}
-$('generateBtn').addEventListener('click',generateVariants);
-
-$('palettes').addEventListener('click',e=>{const b=e.target.closest('[data-color]');if(!b)return;$('outerColor').value=b.dataset.color;document.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('active',x===b));render()});
-$('bgUpload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{bgImage=img;render();toast('تصویر پس‌زمینه اضافه شد')};img.src=URL.createObjectURL(f)});
-$('clearBg').addEventListener('click',()=>{bgImage=null;$('bgUpload').value='';render();toast('تصویر پس‌زمینه حذف شد')});
+(()=>{
+const $=id=>document.getElementById(id),canvas=$('cover'),ctx=canvas.getContext('2d');
+const defaults={titleText:'یه شروع تازه!',subText:"Let's see where this goes!",style:'minimal',titleStroke:true,subStroke:false,titleFill:'#ffffff',titleOutline:'#17151d',subFill:'#ffbf24',subOutline:'#17151d',bgColor:'#211c35',decor:'none',ratio:'portrait'};
+let state={...defaults},part='title',colorMode='fill',bgImage=null,saveTimer;
+const palettes=['#ffffff','#ffbf24','#13bce8','#f343a5','#a855f7','#83e52b','#ff851b','#17151d'];
+const fonts={minimal:{fa:'Estedad',en:'Fredoka',weight:850,size:.105},fancy:{fa:'Marhey',en:'Fredoka',weight:700,size:.12},bold:{fa:'Lalezar',en:'Lilita One',weight:400,size:.135},display:{fa:'Marhey',en:'Lilita One',weight:700,size:.125}};
+const fontFor=text=>/[آ-ی]/.test(text)?fonts[state.style].fa:fonts[state.style].en;
+const isStroke=()=>part==='title'?'titleStroke':'subStroke';
+const colorKey=()=>part+(colorMode==='fill'?'Fill':'Outline');
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem('coverlab-v2',JSON.stringify(state))}catch(e){}},180)}
+function wrap(text,font,size,max){ctx.font=fonts[state.style].weight+' '+size+'px "'+font+'"';let out=[];text.split('\n').forEach(p=>{let line='';p.split(/\s+/).forEach(word=>{let test=line?line+' '+word:word;if(ctx.measureText(test).width>max&&line){out.push(line);line=word}else line=test});out.push(line)});return out}
+function paintBg(w,h){ctx.fillStyle=state.bgColor;ctx.fillRect(0,0,w,h);if(bgImage){let s=Math.max(w/bgImage.width,h/bgImage.height),iw=bgImage.width*s,ih=bgImage.height*s;ctx.drawImage(bgImage,(w-iw)/2,(h-ih)/2,iw,ih);ctx.fillStyle='#08071335';ctx.fillRect(0,0,w,h)}}
+function decorations(w,h){const c=state.titleOutline;ctx.save();ctx.strokeStyle=c;ctx.fillStyle=c;ctx.lineWidth=9;ctx.lineCap='round';if(state.decor==='spark'){[[.15,.2],[.84,.22],[.18,.8],[.83,.78]].forEach(([x,y])=>{ctx.save();ctx.translate(w*x,h*y);for(let a=0;a<4;a++){ctx.rotate(Math.PI/4);ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(0,-42);ctx.stroke()}ctx.restore()})}else if(state.decor==='dots'){for(let i=0;i<18;i++){ctx.beginPath();ctx.arc(w*(.12+(i%6)*.15),h*(i<9?.2:.8),7,0,Math.PI*2);ctx.fill()}}else if(state.decor==='lines'){[[.12,.22,1],[.82,.24,-1],[.15,.8,-1],[.84,.78,1]].forEach(([x,y,d])=>{ctx.save();ctx.translate(w*x,h*y);ctx.rotate(d*.45);for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(i*17,0);ctx.lineTo(i*17+40,-25);ctx.stroke()}ctx.restore()})}else if(state.decor==='arrows'){ctx.font='900 90px Fredoka';ctx.fillText('➜',w*.08,h*.25);ctx.save();ctx.translate(w,h);ctx.rotate(Math.PI);ctx.fillText('➜',w*.08,h*.25);ctx.restore()}else if(state.decor==='circles'){[[.13,.22,45],[.86,.25,30],[.16,.8,25],[.84,.78,48]].forEach(([x,y,r])=>{ctx.beginPath();ctx.arc(w*x,h*y,r,0,Math.PI*2);ctx.stroke()})}else if(state.decor==='confetti'){const cs=['#ffbf24','#13bce8','#f343a5','#a855f7','#83e52b'];for(let i=0;i<30;i++){ctx.fillStyle=cs[i%cs.length];ctx.save();ctx.translate(w*(.08+(i*37%84)/100),h*(.1+(i*53%80)/100));ctx.rotate(i);ctx.fillRect(0,0,9,25);ctx.restore()}}ctx.restore()}
+function drawText(text,x,y,max,fill,outline,stroke,size){if(!text.trim())return;const font=fontFor(text);ctx.font=fonts[state.style].weight+' '+size+'px "'+font+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction=/[A-Za-z]/.test(text)&&!/[آ-ی]/.test(text)?'ltr':'rtl';ctx.lineJoin='round';ctx.miterLimit=2;if(stroke){ctx.lineWidth=Math.max(8,size*.13);ctx.strokeStyle=outline;ctx.strokeText(text,x,y,max)}ctx.fillStyle=fill;ctx.fillText(text,x,y,max)}
+function render(){let w=canvas.width,h=canvas.height;paintBg(w,h);decorations(w,h);const title=state.titleText.trim(),size=Math.min(160,Math.max(54,w*fonts[state.style].size)),lines=wrap(title,fontFor(title),size,w*.82),gap=size*1.12,center=h*.49,total=(lines.length-1)*gap;lines.forEach((line,i)=>drawText(line,w/2,center-total/2+i*gap,w*.84,state.titleFill,state.titleOutline,state.titleStroke,size));const sub=state.subText.trim();if(sub){const ss=Math.min(54,Math.max(30,w*.045));drawText(sub,w/2,h*.79,w*.86,state.subFill,state.subOutline,state.subStroke,ss)}save()}
+function updateUi(){ $('titleText').value=state.titleText;$('subText').value=state.subText;$('bgColor').value=state.bgColor;$('titleStroke').checked=state.titleStroke;$('subStroke').checked=state.subStroke;document.querySelectorAll('[data-style]').forEach(b=>b.classList.toggle('active',b.dataset.style===state.style));document.querySelectorAll('[data-decor]').forEach(b=>b.classList.toggle('active',b.dataset.decor===state.decor));document.querySelectorAll('[data-ratio]').forEach(b=>b.classList.toggle('active',b.dataset.ratio===state.ratio));setPart(part);syncPalette()}
+function setPart(p){part=p;document.querySelectorAll('[data-part]').forEach(b=>b.classList.toggle('active',b.dataset.part===p));syncPalette()}
+function syncPalette(){const c=state[colorKey()];document.querySelectorAll('.swatch').forEach(b=>b.classList.toggle('active',b.dataset.color===c));$('customColor').value=c}
+function setRatio(r){state.ratio=r;const sizes={portrait:[1080,1350,'1080 × 1350 px'],square:[1080,1080,'1080 × 1080 px'],story:[1080,1920,'1080 × 1920 px']};canvas.width=sizes[r][0];canvas.height=sizes[r][1];$('dimensionLabel').textContent=sizes[r][2];document.querySelectorAll('[data-ratio]').forEach(b=>b.classList.toggle('active',b.dataset.ratio===r));render()}
+function download(){render();let a=document.createElement('a');a.download='coverlab-cover.png';a.href=canvas.toDataURL('image/png');a.click();toast('کاور آماده شد')}
+$('titleText').addEventListener('input',e=>{state.titleText=e.target.value;render()});$('subText').addEventListener('input',e=>{state.subText=e.target.value;render()});
+document.querySelectorAll('[data-part]').forEach(b=>b.addEventListener('click',()=>setPart(b.dataset.part)));
+$('titleStroke').addEventListener('change',e=>{state.titleStroke=e.target.checked;render()});$('subStroke').addEventListener('change',e=>{state.subStroke=e.target.checked;render()});
+document.querySelectorAll('[data-style]').forEach(b=>b.addEventListener('click',()=>{state.style=b.dataset.style;document.querySelectorAll('[data-style]').forEach(x=>x.classList.toggle('active',x===b));render()}));
+document.querySelectorAll('[data-color-mode]').forEach(b=>b.addEventListener('click',()=>{colorMode=b.dataset.colorMode;document.querySelectorAll('[data-color-mode]').forEach(x=>x.classList.toggle('active',x===b));syncPalette()}));
+$('palette').addEventListener('click',e=>{let b=e.target.closest('[data-color]');if(!b)return;state[colorKey()]=b.dataset.color;syncPalette();render()});
+$('customColor').addEventListener('input',e=>{state[colorKey()]=e.target.value;syncPalette();render()});
+$('bgColor').addEventListener('input',e=>{state.bgColor=e.target.value;render()});
+document.querySelectorAll('[data-decor]').forEach(b=>b.addEventListener('click',()=>{state.decor=b.dataset.decor;document.querySelectorAll('[data-decor]').forEach(x=>x.classList.toggle('active',x===b));render()}));
+document.querySelectorAll('[data-ratio]').forEach(b=>b.addEventListener('click',()=>setRatio(b.dataset.ratio)));
+$('bgUpload').addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let img=new Image();img.onload=()=>{bgImage=img;render();toast('تصویر پس‌زمینه اضافه شد')};img.src=URL.createObjectURL(f)});
 $('downloadBtn').addEventListener('click',download);$('downloadTop').addEventListener('click',download);
-$('resetBtn').addEventListener('click',()=>{controls.forEach(id=>{const el=$(id);if(el.type==='checkbox')el.checked=defaults[id];else el.value=defaults[id]});bgImage=null;$('bgUpload').value='';setSize('portrait');show('fontSizeOut',defaults.fontSize);show('outerOut',defaults.outerWidth);show('innerOut',defaults.innerWidth);show('lineOut',(defaults.lineHeight/100).toFixed(2));show('positionOut',defaults.positionY+'%');show('overlayOut',defaults.overlay+'%');render();toast('تنظیمات بازنشانی شد')});
-try{const saved=JSON.parse(localStorage.getItem('coverlab-settings')||'null');if(saved){controls.forEach(id=>{if(saved[id]!==undefined){if($(id).type==='checkbox')$(id).checked=saved[id];else $(id).value=saved[id]}});ratio=saved.ratio||'portrait'}}catch(e){}
-// Render immediately so the preview does not depend on external font loading.
-setSize(ratio);
-loadSelectedFont();
-generateVariants();
-show('fontSizeOut',val('fontSize'));show('outerOut',val('outerWidth'));show('innerOut',val('innerWidth'));show('lineOut',(Number(val('lineHeight'))/100).toFixed(2));show('positionOut',val('positionY')+'%');show('overlayOut',val('overlay')+'%');
-// Re-render when web fonts finish loading; if they are unavailable, the fallback preview remains visible.
-if(document.fonts && document.fonts.ready){document.fonts.ready.then(()=>render()).catch(()=>{});}
+$('resetBtn').addEventListener('click',()=>{state={...defaults};bgImage=null;$('bgUpload').value='';part='title';colorMode='fill';updateUi();setRatio(state.ratio);toast('تنظیمات بازنشانی شد')});
+canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect(),y=(e.clientY-r.top)/r.height;if(y<.68)setPart('title');else setPart('subtitle')});
+try{const saved=JSON.parse(localStorage.getItem('coverlab-v2')||'null');if(saved)state={...defaults,...saved}}catch(e){}
+updateUi();setRatio(state.ratio);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(render).catch(()=>{});
 })();
 </script>
 </body></html>
