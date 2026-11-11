@@ -158,8 +158,8 @@ select{height:39px}input[type=range]{width:100%;accent-color:#a78bfa;direction:l
 <script>
 (() => {
 const $=id=>document.getElementById(id);
-const debugEntries=[];
-function debugLog(level,message,extra){let line='['+new Date().toLocaleTimeString()+'] ['+level.toUpperCase()+'] '+message;if(extra!==undefined){try{line+=' | '+(typeof extra==='string'?extra:JSON.stringify(extra))}catch(e){line+=' | '+String(extra)}}debugEntries.push(line);if(debugEntries.length>160)debugEntries.shift();const out=$('debugLogs');if(out){out.textContent=debugEntries.join('\n');out.scrollTop=out.scrollHeight}}
+const debugEntries=[];let renderCount=0;
+function debugLog(level,message,extra){let line='['+new Date().toLocaleTimeString()+'] ['+level.toUpperCase()+'] '+message;if(extra!==undefined){try{line+=' | '+(typeof extra==='string'?extra:JSON.stringify(extra))}catch(e){line+=' | '+String(extra)}}debugEntries.push(line);if(debugEntries.length>100)debugEntries.shift();const out=$('debugLogs');if(out){out.textContent=debugEntries.join('\\n');if($('debugPanel')&&$('debugPanel').open)out.scrollTop=out.scrollHeight}}
 window.addEventListener('error',e=>debugLog('error','JavaScript/resource error: '+(e.message||'unknown'),{file:e.filename,line:e.lineno,column:e.colno,tag:e.target&&e.target.tagName}));
 window.addEventListener('unhandledrejection',e=>debugLog('error','Unhandled promise rejection',e.reason&&(e.reason.stack||e.reason.message)||String(e.reason)));
 const nativeConsoleError=console.error.bind(console);console.error=(...args)=>{debugLog('error','console.error',args.map(x=>x&&(x.stack||x.message)||String(x)).join(' | '));nativeConsoleError(...args)};
@@ -198,7 +198,7 @@ function render(){
   let y=h*Number(val('positionY'))/100-total/2;
   lines.forEach(line=>{strokeText(line,w/2,y,font,size);y+=lineGap});
   const sub=val('subText').trim();if(sub){const sf=/[A-Za-z]/.test(sub)&&!/[آ-ی]/.test(sub)?'Fredoka':font;const ss=Math.min(48,Math.max(28,size*.36));ctx.font='700 '+ss+'px "'+sf+'"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.direction='ltr';ctx.lineJoin='round';ctx.lineWidth=10;ctx.strokeStyle=val('innerColor');ctx.strokeText(sub,w/2,h*.82,w*.84);ctx.fillStyle=val('subColor');ctx.fillText(sub,w/2,h*.82,w*.84)}
-  scheduleSave();debugLog('info','پیش‌نمایش با موفقیت رندر شد',{width:w,height:h,font,size,titleLength:val('titleText').length,durationMs:Math.round(performance.now()-started)});
+  scheduleSave();renderCount++;if(renderCount<=2||renderCount%25===0)debugLog('info','پیش‌نمایش رندر شد',{renderCount,width:w,height:h,font,size,titleLength:val('titleText').length,durationMs:Math.round(performance.now()-started)});
  }catch(e){debugLog('error','خطا هنگام رسم پیش‌نمایش',e.stack||e.message||String(e));try{ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#21131b';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#fff';ctx.font='bold 30px sans-serif';ctx.textAlign='center';ctx.fillText('Preview error — open Debug panel',canvas.width/2,canvas.height/2);ctx.restore()}catch(drawError){debugLog('error','نمایش پیام خطا روی Canvas ناموفق بود',drawError.message)}}
 }
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{const data={};controls.forEach(id=>data[id]=val(id));data.ratio=ratio;localStorage.setItem('coverlab-settings',JSON.stringify(data))}catch(e){}},250)}
